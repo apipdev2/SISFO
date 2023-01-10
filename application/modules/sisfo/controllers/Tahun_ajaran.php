@@ -6,6 +6,7 @@ class Tahun_ajaran extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('sisfo/TA_model','ta');
+		is_login();
 	}
 
 	public function index()
@@ -13,8 +14,9 @@ class Tahun_ajaran extends CI_Controller {
 		$data = [
 			'title' => 'Tahun Ajaran',
 			'tahun' => $this->ta->getTahunAjaran()->result(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 		];
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/Tahun_ajaran/index',$data);
 		$this->load->view('template/footer');
@@ -26,6 +28,7 @@ class Tahun_ajaran extends CI_Controller {
 		$data = [
 			'tahun' 		=> $this->input->post('tahun'),
 			'tahun_ajaran' 	=> $this->input->post('tahun_ajaran'),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 		];
 
 		$query = $this->ta->addTahunAjaran($data);

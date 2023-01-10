@@ -7,6 +7,8 @@ class Jurusan extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('sisfo/Jurusan_model','jm');
+		is_login();
+		cek_admin();
 		
 	}
 
@@ -15,9 +17,10 @@ class Jurusan extends CI_Controller {
 		$data = [
 			'title' => 'Data Jurusan',
 			'jurusan' => $this->jm->getJurusan()->result(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 		];
 
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/jurusan/index',$data);
 		$this->load->view('template/footer');

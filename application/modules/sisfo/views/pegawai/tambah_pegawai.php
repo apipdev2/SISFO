@@ -139,6 +139,12 @@
                           <option value="" selected disabled>::Pilih Status::</option>
                           <option value="guru">Guru</option>
                           <option value="tendik">Tendik</option>
+                          <option value="pramusaji">Pramusaji</option>
+                          <option value="pramubakti">Pramubakti</option>
+                          <option value="security">Security</option>
+
+
+
                         </select>
                       </div>
                     </div>

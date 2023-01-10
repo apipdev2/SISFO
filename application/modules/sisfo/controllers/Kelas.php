@@ -7,6 +7,8 @@ class Kelas extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('sisfo/Kelas_model','kelas');
+		is_login();
+		cek_admin();
 		
 	}
 
@@ -14,10 +16,14 @@ class Kelas extends CI_Controller {
 	{	
 		$data = [
 			'title' => 'Data Kelas',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 			'kelas' => $this->kelas->getKelas()->result(),
+			'kurikulum' => $this->kelas->getKurikulum()->result(),
+			'jurusan' => $this->kelas->getjurusan()->result(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 		];
 
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/kelas/index',$data);
 		$this->load->view('template/footer');
@@ -26,6 +32,9 @@ class Kelas extends CI_Controller {
 	public function tambah()
 	{
 		$data = [
+			'id_tahunajaran'=> $this->session->userdata('id_tahun'),
+			'kurikulum' 	=> $this->input->post('kurikulum'),
+			'jurusan' 		=> $this->input->post('jurusan'),
 			'tingkat' 		=> $this->input->post('tingkat'),
 			'kelas' 		=> $this->input->post('kelas'),
 		];
@@ -45,6 +54,8 @@ class Kelas extends CI_Controller {
 	{
 		$id = decrypt_url($id);
 		$data = [
+			'kurikulum' 	=> $this->input->post('kurikulum'),
+			'jurusan' 		=> $this->input->post('jurusan'),
 			'tingkat' 		=> $this->input->post('tingkat'),
 			'kelas' 		=> $this->input->post('kelas'),
 		];

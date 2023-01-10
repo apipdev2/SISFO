@@ -8,10 +8,22 @@
           </h2>
         </div>
 
-        <!-- Page title actions -->
+       <!-- Page title actions -->
         <div class="col-12 col-md-auto ms-auto d-print-none">
-           
-          </div>
+            <div class="btn-list">
+
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="#">Rombel</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
+                  </ol>
+                </nav>
+                
+
+            </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -47,8 +59,13 @@
           </div>
         </div>           
             <div class="card-body">
+
+              <div class="btn-group">
+                <a href="" class="btn btn-success mb-2"  data-bs-toggle="modal" data-bs-target="#modal-add" ><i class="fas fa-user-plus"></i> add</a>
+                <a href="" class="btn btn-secondary mb-2"  data-bs-toggle="modal" data-bs-target="#import" ><i class="fas fa-download"></i> Import</a>
+              </div>
+
               <div  class="table-responsive read">
-                <a href="" class="btn btn-success mb-2"  data-bs-toggle="modal" data-bs-target="#modal-add" ><i class="fas fa-user-plus"></i> Tambah Peserta Didik</a>
                 <table class="table datatable" id="dt">
                     <thead>
                       <tr>
@@ -124,7 +141,7 @@
                   <tbody class="table-tbody">
                       <?php foreach ($siswa as $row): ?>
                         <tr>
-                          <td><input type="checkbox" name="id_siswa[]"  value="<?= $row->id_siswa; ?>"></td>
+                          <td><input type="checkbox" name="nis[]"  value="<?= $row->nis; ?>"></td>
                           <td><?= $row->nama_peserta; ?></td>
                           <td><?= $row->jenis_kelamin; ?></td>
                           <td><?= $row->tempat_lahir; ?></td>
@@ -166,4 +183,29 @@
     </div>
 
   <?php endforeach ?>
+
+
+   <!-- import -->
+  <div class="modal modal-blur fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary text-light">
+            Import Siswa
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label>File import</label>
+              <input type="file" name="file" class="form-control">
+            </div>
+            
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+            <a href="<?= base_url('sisfo/Rombel/hapusPeserta/');?>" class="btn btn-seccess" >Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
 

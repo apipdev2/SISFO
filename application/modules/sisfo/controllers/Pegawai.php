@@ -7,6 +7,8 @@ class Pegawai extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('sisfo/Pegawai_model','pegawai');
+		is_login();
+		cek_admin();
 		
 	}
 
@@ -15,9 +17,10 @@ class Pegawai extends CI_Controller {
 		$data = [
 			'title' => 'Data Pegawai',
 			'pegawai' => $this->pegawai->getPegawai()->result(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 		];
 
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/pegawai/index',$data);
 		$this->load->view('template/footer');
@@ -27,13 +30,14 @@ class Pegawai extends CI_Controller {
 	{	
 		$data = [
 			'title' => 'Tambah Pegawai',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 		];
 
 		$this->form_validation->set_rules('nik', 'NIK', 'required|min_length[1]|max_length[16]');
 		$this->form_validation->set_rules('nama_lengkap', 'Nama', 'required');
 		if ($this->form_validation->run()== FALSE) {
 
-			$this->load->view('template/header');
+			$this->load->view('template/header',$data);
 			$this->load->view('template/navbar');
 			$this->load->view('sisfo/pegawai/tambah_pegawai',$data);
 			$this->load->view('template/footer');

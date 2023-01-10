@@ -5,12 +5,17 @@ class Rombel_model extends CI_Model {
 
 	public function getRombel()
 	{
-		return $this->db->get('tbl_kelas');
+		return $this->db->get_where('tbl_kelas',['id_tahunajaran'=>$this->session->userdata('id_tahun')]);
 	}
 
 	public function getRombelById($id_kelas)
 	{
-		return $this->db->get_where('tbl_kelas',['id_kelas'=>$id_kelas]);
+		return $this->db->get_where('tbl_kelas',['id_kelas'=>$id_kelas, 'id_tahunajaran'=>$this->session->userdata('id_tahun')]);
+	}
+
+	public function getSiswa()
+	{
+		return $this->db->get_where('siswa',['id_tahun' => $this->session->userdata('id_tahun'),'flag'=>'0']);
 	}
 
 }

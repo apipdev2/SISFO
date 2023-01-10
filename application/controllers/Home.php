@@ -6,8 +6,10 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('home',[
-			'title' => 'Home'
+			'title' => 'Home',
+			'sekolah' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 		]);
+
 	}
 
 }

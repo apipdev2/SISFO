@@ -42,6 +42,8 @@
                         <th>No</th>
                         <th>Tingkat</th>
                         <th>Nama Kelas</th>
+                        <th>Jurusan</th>
+                        <th>Kurikulum</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -50,7 +52,9 @@
                         <tr>
                           <td><?= $no++;?></td>
                           <td><?= $row->tingkat;?></td>
-                          <td><?= $row->kelas;?></td>                          
+                          <td><?= $row->kelas;?></td>
+                          <td><?= $row->jurusan;?></td>
+                          <td><?= $row->kurikulum;?></td>                          
                           <td>
                             <a href="" data-bs-toggle="modal" data-bs-target="#modal-edit<?= $row->id_kelas;?>" class="fas fa-edit text-info"></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#modal-del<?= $row->id_kelas;?>" class="fas fa-trash text-danger"></a>
@@ -80,6 +84,27 @@
           </div>
           <form action="<?= base_url('sisfo/Kelas/tambah'); ?>" method="post">
           <div class="modal-body">
+
+
+              <div class="form-group">
+                <label>Kurikulum</label>
+                <select name="kurikulum" class="form-select">
+                <option value="" selected disabled>::Pilih Kurikulum::</option>
+                  <?php foreach ($kurikulum as $k): ?>
+                    <option value="<?= $k->kode_kurikulum; ?>"><?= $k->nama_kurikulum; ?>( <?= $k->kode_kurikulum; ?> )</option>
+                  <?php endforeach ?>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Jurusan</label>
+                <select name="jurusan" class="form-select">
+                <option value="" selected disabled>::Pilih Jurusan::</option>
+                  <?php foreach ($jurusan as $j): ?>
+                    <option value="<?= $j->nama_jurusan; ?>"><?= $j->nama_jurusan; ?></option>
+                  <?php endforeach ?>
+                </select>
+              </div>
 
               <div class="form-group">
                 <label>Tingkat</label>
@@ -114,6 +139,32 @@
           </div>
           <form action="<?= base_url('sisfo/Kelas/edit/'.encrypt_url($row->id_kelas)); ?>" method="post">
           <div class="modal-body">
+
+             <div class="form-group">
+                <label>Kurikulum</label>
+                <select name="kurikulum" class="form-select">
+                  <?php foreach ($kurikulum as $k): ?>
+                  <?php if ($row->kurikulum == $k->kode_kurikulum): ?>
+                    <option value="<?= $k->kode_kurikulum; ?>" selected><?= $k->nama_kurikulum; ?>( <?= $k->kode_kurikulum; ?> )</option>
+                  <?php else: ?>
+                    <option value="<?= $k->kode_kurikulum; ?>"><?= $k->nama_kurikulum; ?>( <?= $k->kode_kurikulum; ?> )</option>
+                  <?php endif ?>
+                  <?php endforeach ?>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Jurusan</label>
+                <select name="jurusan" class="form-select">
+                  <?php foreach ($jurusan as $j): ?>
+                  <?php if ($row->jurusan == $j->nama_jurusan): ?>
+                    <option value="<?= $j->nama_jurusan; ?>" selected><?= $j->nama_jurusan; ?></option>
+                  <?php else: ?>
+                    <option value="<?= $j->nama_jurusan; ?>"><?= $j->nama_jurusan; ?></option>
+                  <?php endif ?>
+                  <?php endforeach ?>
+                </select>
+              </div>
 
              <div class="form-group">
                 <label>Tingkat</label>

@@ -13,7 +13,9 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Sign in with cover - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <title>SISFO | Akademik</title>
+     <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/menu/logo-sisfo.png'); ?>">
     <!-- CSS files -->
     <link href="<?= base_url('assets/dist/css/tabler.min.css');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/tabler-flags.min.css');?>" rel="stylesheet"/>
@@ -78,7 +80,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
-        <div class="bg-cover h-100 min-vh-100" style="background-image: url(<?= base_url('assets/img/login2.jpg');?>);"></div>
+        <div class="bg-cover h-100 min-vh-100" style="background-image: url(<?= base_url('assets/img/menu/SIFOS.png');?>);"></div>
       </div>
     </div>
     <!-- Libs JS -->

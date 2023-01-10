@@ -7,7 +7,9 @@ class Kenaikan extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('sisfo/Kelas_model','kelas');
-		$this->load->model('sisfo/Riwayatkelas_model','riwayatkelas');
+		$this->load->model('sisfo/Kenaikan_model','kenaikan');
+		is_login();
+		// cek_admin();
 		
 	}
 
@@ -15,7 +17,7 @@ class Kenaikan extends CI_Controller {
 	{	
 		if ($this->input->post('id_kelas')) {
 
-			$siswa = $this->riwayatkelas->getSiswaByIdKelas($this->input->post('id_kelas'))->result();
+			$siswa = $this->kenaikan->getSiswaByIdKelas($this->input->post('id_kelas'))->result();
 
 		}else{
 			$siswa = [];
@@ -24,34 +26,68 @@ class Kenaikan extends CI_Controller {
 		$data = [
 			'title' => 'Kenaikan Kelas',
 			'tahunajaran' => $this->db->get_where('tahunajaran',['id_tahun'=> $this->session->userdata('id_tahun')])->row(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
+			'ta' => $this->db->get('tahunajaran')->result(),
+			'kelas' => $this->kelas->getKelas()->result(),
+			'kelas_baru' => $this->kelas->getKelas()->result(),
+			'siswa' => $siswa,
+
+		];
+
+		$this->load->view('template/header',$data);
+		$this->load->view('template/navbar');
+		$this->load->view('sisfo/kenaikan/index',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function tinggal_kelas()
+	{	
+		if ($this->input->post('id_kelas')) {
+
+			$siswa = $this->kenaikan->getSiswaByIdKelas($this->input->post('id_kelas'))->result();
+
+		}else{
+			$siswa = [];
+		}
+
+		$data = [
+			'title' => 'Tinggal Kelas',
+			'tahunajaran' => $this->db->get_where('tahunajaran',['id_tahun'=> $this->session->userdata('id_tahun')])->row(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 			'ta' => $this->db->get('tahunajaran')->result(),
 			'kelas' => $this->kelas->getKelas()->result(),
 			'kelas_baru' => $this->kelas->getKelas()->result(),
 			'siswa' => $siswa,
 		];
 
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
-		$this->load->view('sisfo/kenaikan/index',$data);
+		$this->load->view('sisfo/kenaikan/tinggal_kelas',$data);
 		$this->load->view('template/footer');
 	}
 
+	public function ajax_getKelas($id_tahun)
+	{
+		$kelas = $this->kelas->getKelasByTahun($id_tahun)->result();
+		echo json_encode($kelas);
+	}
+
 	public function naik()
-	{	
-		$id_siswa = $this->input->post('id_siswa');
+	{			
+		$nis = $this->input->post('nis');
 		$id_tahun = $this->input->post('id_tahun');
 		$id_kelas = $this->input->post('id_kelas');
 
-		for ($i=0; $i < count($id_siswa) ; $i++) { 
+		for ($i=0; $i < count($nis) ; $i++) { 
 			
 			$data[$i] = [
 				'id_tahun' => $id_tahun,
-				'id_siswa' => $id_siswa[$i],
+				'nis' => $nis[$i],
 				'id_kelas' => $id_kelas,
 				'status_siswa' => 'Y',
 			];
 
-			$cek = $this->db->get_where('riwayatkelas',['id_tahun' => $id_tahun,'id_siswa' => $id_siswa[$i]])->num_rows();
+			$cek = $this->db->get_where('riwayatkelas',['id_tahun' => $id_tahun,'nis' => $nis[$i]])->num_rows();
 
 			if ($cek > 0) {
 
@@ -60,10 +96,59 @@ class Kenaikan extends CI_Controller {
 			}else{
 
 				$query = $this->db->insert('riwayatkelas',$data[$i]);
+				
+				//update flag
+				$this->db->where([
+					'id_tahun' => $this->session->userdata('id_tahun'),
+					'nis' 	 => $nis[$i],
+					'id_kelas' => $id_kelas,
+				])->update('riwayatkelas',['flag' => '1']);
 			}
 
-			//update flag
-			// $this->db->where('id_siswa',$id_siswa[$i])->update('riwayatkelas',['flag' => 'Naik Kelas'])
+		}
+
+		if ($query) {
+			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Tersimpan!', 'success');</script>");
+        	redirect('sisfo/Kenaikan');
+		}else{
+			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
+        	redirect('sisfo/Kenaikan');
+		}
+	}
+
+	public function tinggal()
+	{	
+		$nis = $this->input->post('nis');
+		$id_tahun = $this->input->post('id_tahun');
+		$id_kelas = $this->input->post('id_kelas');
+
+		for ($i=0; $i < count($nis) ; $i++) { 
+			
+			$data[$i] = [
+				'id_tahun' => $id_tahun,
+				'nis' => $nis[$i],
+				'id_kelas' => $id_kelas,
+				'status_siswa' => 'Y',
+			];
+
+			$cek = $this->db->get_where('riwayatkelas',['id_tahun' => $id_tahun,'nis' => $nis[$i]])->num_rows();
+
+			if ($cek > 0) {
+
+				$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Sudah ada!', 'info');</script>");
+
+			}else{
+
+				$query = $this->db->insert('riwayatkelas',$data[$i]);
+				
+				//update flag
+				$this->db->where([
+					'id_tahun' => $this->session->userdata('id_tahun'),
+					'nis' => $nis[$i],
+					'id_kelas' => $id_kelas,
+				])->update('riwayatkelas',['flag' => '2']);
+			}
+
 		}
 
 		if ($query) {

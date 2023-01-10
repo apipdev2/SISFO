@@ -35,10 +35,11 @@
     <!-- Tabler Core -->
     <script src="<?= base_url('assets/dist/js/tabler.min.js');?>" defer></script>
     <script src="<?= base_url('assets/dist/js/demo.min.js');?>" defer></script>
-    <!-- data table -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
+    
     <!-- sweet alert -->
     <script src="<?= base_url('assets/dist/libs/sweetalert/sweetalert.min.js');?>"></script>
+
+   
 
     <script>
       $(document).ready(function () {

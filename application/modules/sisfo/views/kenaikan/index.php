@@ -13,15 +13,16 @@
             <div class="btn-list">
 
                 <nav aria-label="breadcrumb">
-				  <ol class="breadcrumb">
-				    <li class="breadcrumb-item"><a href="#">Home</a></li>
-				    <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-				  </ol>
-				</nav>
+        				  <ol class="breadcrumb">
+        				    <li class="breadcrumb-item"><a href="#">Home</a></li>
+        				    <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
+        				  </ol>
+        				</nav>
                 
 
             </div>
-          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -43,7 +44,7 @@
         			<div class="col-md-5">
         				<div class="form-group">
         					<label>Kelas</label>
-        					<select name="id_kelas" class="form-select">
+        					<select name="id_kelas" id="id_kls" class="form-select">
         					<option value="" selected disabled>::Pilih Kelas::</option>
         					<?php foreach ($kelas as $kelas): ?>
         						<option value="<?= $kelas->id_kelas; ?>"><?= $kelas->kelas; ?></option>
@@ -77,7 +78,7 @@
                     <tbody class="table-tbody">
                       <?php foreach ($siswa as $row): ?>
                       	<tr>
-                          <td><input type="checkbox" name="id_siswa[]" value="<?= $row->id_siswa; ?>"></td>
+                          <td><input type="checkbox" name="nis[]" value="<?= $row->nis; ?>"></td>
                           <td><?= $row->nis; ?></td>
                           <td><?= $row->nama_peserta; ?></td>
                            <td><?= $row->jenis_kelamin; ?></td>
@@ -99,7 +100,7 @@
 
             			<div class="form-group">
             				<label>Tahun Ajaran Tujuan</label>
-            				<select name="id_tahun" class="form-select">
+            				<select name="id_tahun" id="tahun" class="form-select">
             					<option value="" selected disabled>::Pilih Tahun Ajaran::</option>
             				<?php foreach ($ta as $ta): ?>
             					<option value="<?= $ta->id_tahun; ?>"><?= $ta->tahun_ajaran; ?></option>
@@ -114,17 +115,17 @@
             			
             			<div class="form-group">
         					<label>Kelas Tujuan</label>
-        					<select name="id_kelas" class="form-select">
-        					<option value="" selected disabled>::Pilih Kelas Tujuan::</option>
-        					<?php foreach ($kelas_baru as $kelas): ?>
-        						<option value="<?= $kelas->id_kelas; ?>"><?= $kelas->kelas; ?></option>
-        					<?php endforeach ?>
+        					<select name="id_kelas" id="kelas" class="form-select">
+        					
         					</select>
         				</div>
 
             		</div>
-            		<div class="col-md-2">
-            			<button class="btn btn-warning mt-3">Pindah/Naik Kelas</button>
+            		<div class="col-md-2 mt-3">
+                  <div class="btn-group">
+                    
+            			<button class="btn btn-warning">Naik Kelas</button>
+                  </div>
             		</div>
             	</div>
             </div>
@@ -155,6 +156,31 @@
            }
        }
    }
+
+   //tahun
+   $('#tahun').change(function(){
+
+      var id_tahun = $('#tahun').val();
+      $.ajax({
+        Type : "POST",
+        url : "<?= base_url('sisfo/Kenaikan/ajax_getKelas/');?>"+id_tahun,
+        dataType :"JSON",
+        success : function(data){
+          
+          var html = '';
+            html+='<option value="" selected disabled>::Pilih::</option>';
+          for (var i = 0; i < data.length; i++) {
+            
+            html+='<option value="'+data[i].id_kelas+'">'+data[i].kelas+'</option>';
+          }
+          $('#kelas').html(html);
+        }
+      });
+   });
+
+
+  
+
 
  </script>
 

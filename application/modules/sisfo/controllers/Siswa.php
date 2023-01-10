@@ -8,16 +8,18 @@ class Siswa extends CI_Controller {
 		parent::__construct();
 		$this->load->model('sisfo/Siswa_model','siswa');
 		$this->load->model('sisfo/Jurusan_model','jurusan');
+		is_login();
 	}
 
 	public function index()
 	{	
 		$data = [
 			'title' => 'Data Siswa',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 			'siswa' => $this->siswa->getSiswa()->result(),
 		];
 
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/siswa/index',$data);
 		$this->load->view('template/footer');
@@ -26,7 +28,8 @@ class Siswa extends CI_Controller {
 	public function tambah()
 	{	
 		$data =[
-			'title' 	=> 'Tambah Siswa',			
+			'title' 	=> 'Tambah Siswa',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),			
 			'jurusan'	=> $this->jurusan->getJurusan()->result(),
 			'agama'		=> $this->db->get('tbl_agama')->result(),
 			'kebutuhan'	=> $this->db->get('berkebutuhan_khusus')->result(),
@@ -51,7 +54,7 @@ class Siswa extends CI_Controller {
 
 		if ($this->form_validation->run()== FALSE) {
 
-			$this->load->view('template/header');
+			$this->load->view('template/header',$data);
 			$this->load->view('template/navbar');
 			$this->load->view('sisfo/siswa/tambah_siswa',$data);
 			$this->load->view('template/footer');
@@ -130,6 +133,7 @@ class Siswa extends CI_Controller {
 		$id = decrypt_url($id);
 		$data =[
 			'title' => 'Edit Siswa',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 			'siswa'	=> $this->siswa->getSiswaById($id)->row(),
 			'jurusan'	=> $this->jurusan->getJurusan()->result(),
 			'agama'		=> $this->db->get('tbl_agama')->result(),
@@ -153,7 +157,7 @@ class Siswa extends CI_Controller {
 			'size_olahraga' => ['M','L','XL','XXL','XXL'],
 		];
 
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/siswa/edit_siswa',$data);
 		$this->load->view('template/footer');
