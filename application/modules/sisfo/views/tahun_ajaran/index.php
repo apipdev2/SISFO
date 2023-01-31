@@ -15,9 +15,7 @@
                 <a href="#" data-bs-toggle="modal" data-bs-target="#modal-add" class="btn btn-success d-none d-sm-inline-block"><i class="fas fa-plus"></i>
                     Tambah
                 </a>
-                <a href="#" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-print"></i>
-                    Cetak
-                </a>
+                
 
             </div>
           </div>

@@ -62,8 +62,7 @@
                 <div class="col-md-6">
                 	<div class="btn-group float-end">
                 		
-	                	<a href="#" class="btn btn-info d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-add"><i class="fas fa-user-plus"></i>
-		                    Tambah</a>
+	                	
 		                <a href="#" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-print"></i>
 	                    	Cetak</a>
 

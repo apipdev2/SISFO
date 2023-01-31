@@ -42,6 +42,9 @@
                     <a class="dropdown-item" href="<?= base_url('sisfo/Tahun_ajaran'); ?>" >
                       Tahun Ajaran
                     </a>
+                    <a class="dropdown-item" href="<?= base_url('sisfo/User'); ?>" >
+                      Data User
+                    </a>
                     
                   </div>
                 </li>
@@ -124,10 +127,10 @@
                     </span>
                   </a>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="<?= base_url('sisfo/Rombel'); ?>">
+                    <a class="dropdown-item" href="<?= base_url('sisfo/Presensiguru'); ?>">
                       Presensi Guru
                     </a>
-                    <a class="dropdown-item" href="<?= base_url('sisfo/Peserta_didik'); ?>">
+                    <a class="dropdown-item" href="<?= base_url('sisfo/Phsiswa'); ?>">
                       Presensi Siswa
                     </a>
                     

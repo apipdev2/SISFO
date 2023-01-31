@@ -39,6 +39,21 @@
 
                         <div class="col-6">
 
+                           <div class="form-group mb-3 row mb-3 row">
+                            <label class="col-3 col-form-label">Jenis Registrasi</label>
+                            <div class="col">
+                              <select name="jenis_registrasi" class="form-select">
+                                <?php foreach ($jenis_registrasi as $row): ?>
+                                  <?php if ($row == $siswa->jenis_registrasi): ?>
+                                    <option value="<?= $row; ?>" selected><?= $row; ?></option>
+                                  <?php else: ?>
+                                    <option value="<?= $row; ?>"><?= $row; ?></option>
+                                  <?php endif ?>                                  
+                                <?php endforeach ?>
+                              </select>
+                            </div>
+                          </div>
+
                           <div class="form-group mb-3 row mb-3 row">
                             <label class="col-3 col-form-label">NISN</label>
                             <div class="col">

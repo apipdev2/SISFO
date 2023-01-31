@@ -13,12 +13,13 @@ class Walas extends CI_Controller {
 	{
 		$data= [
 			'title' => 'Data Walas',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 			'walas' => $this->walas->getWalas()->result(),
-			'kelas'	=> $this->db->get('tbl_kelas')->result(),
+			'kelas'	=> $this->db->get_where('tbl_kelas',['id_tahunajaran'=> $this->session->userdata('id_tahun')])->result(),
 			'pegawai'=> $this->db->get('pegawai')->result(),
 		];
 
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/walas/index',$data);
 		$this->load->view('template/footer');

@@ -12,15 +12,14 @@
         <div class="col-12 col-md-auto ms-auto d-print-none">
             <div class="btn-list">
 
+             
                 <a href="<?= base_url('sisfo/Siswa/tambah'); ?>" class="btn btn-success d-none d-sm-inline-block"><i class="fas fa-user-plus"></i>
                     Tambah
                 </a>
-                 <a href="#" class="btn btn-info d-none d-sm-inline-block"><i class="fas fa-download"></i>
+                 <a href="#" data-bs-toggle="modal" data-bs-target="#import" class="btn btn-info d-none d-sm-inline-block"><i class="fas fa-download"></i>
                     Import
                 </a>
-                <a href="#" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-print"></i>
-                    Cetak
-                </a>
+                              
 
             </div>
           </div>
@@ -83,6 +82,26 @@
       <!-- end content -->
     </div>
   </div>
+
+   <!-- modal del -->
+  <div class="modal modal-blur fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+              <h3>Download Format Import Siswa: <a href="<?= base_url('assets/import/sample-siswa.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
+              <form action="<?= base_url('sisfo/Siswa/import'); ?>" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label>File Import siswa</label>
+                  <input type="file" name="upload_file" class="form-control">
+                </div>
+                <button type="button" class="btn btn-warning mt-3 link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-info mt-3 float-end">Import Siswa</button>
+              </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
 
 
    <?php foreach ($siswa as $row): ?>

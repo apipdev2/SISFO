@@ -30,7 +30,7 @@
           </div>
             <div class="card-body">
 
-              <form action="<?= base_url('sisfo/Pegawai/update/'.encrypt_url($pegawai->id_pegawai)); ?>" method="post">
+              <form action="<?= base_url('sisfo/Pegawai/update/'.encrypt_url($pegawai->id_pegawai)); ?>" method="post" enctype="multipart/form-data">
                
 
                     <div class="form-group mb-3 row">
@@ -52,7 +52,7 @@
                     <div class="form-group mb-3 row">
                       <label class="col-3 col-form-label">No KK</label>
                       <div class="col">
-                        <input type="text" name="no_kk" class="form-control" >
+                        <input type="text" name="no_kk" class="form-control" value="<?= $pegawai->no_kk;  ?>">
                       </div>
                     </div>
 
@@ -151,6 +151,14 @@
                       </div>
                     </div>
 
+                    <div class="form-group mb-3 row">
+                      <label class="col-3 col-form-label">Foto</label>
+                      <div class="col">
+                        <img class="img-preview img-fluid mb-3 col-sm-4" alt="foto" src="<?= base_url('assets/img/pegawai/'.$pegawai->foto); ?>" width="80">
+                        <input type="file" name="foto" class="form-control" value ="<?= $pegawai->foto; ?>" >
+                      </div>
+                    </div>
+
                     <button class="btn btn-primary float-end m-1"><i class="fas fa-save m-1"></i> Save</button>
                     <a href="<?= base_url('sisfo/Pegawai'); ?>" class="btn btn-danger m-1 float-end"><i class="fas fa-undo"></i>Back</a>
 
@@ -162,6 +170,9 @@
       <!-- end content -->
     </div>
   </div>
+
+
+
 
 
  

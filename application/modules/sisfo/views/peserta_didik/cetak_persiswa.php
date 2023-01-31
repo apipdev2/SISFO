@@ -78,22 +78,11 @@
 
 	<div class="header" >
 
-			<div class="logo">
-				<img src="<?= base_url('assets/img/logo.png'); ?>" alt="logo" width="100">
-			</div>
-		
-			<div class="sekolah" style="justify-content: center;" >
-				<center>
-					
-				<h3 style="line-height: 2px;">YAYASAN PEMBINA LEMBAGA PENDIDIKAN (YPLP-PGRI)</h3>
-				<h3 style="line-height: 2px;">SMK PGRI 1 BALARAJA</h3>
-				<p style="line-height: 1px;">Jl.Raya Balaraja-Cikupa No.2 Balaraja Kabupaten Tangerang 15730 </p>
-				<p style="line-height: 1px;">Email : smkpgri1balaraja@gmail.com Website : smkpgri1balara.sch.id </p>
-				</center>
-			</div>
-			<hr style="margin-top: 0px;">
-	</div>
+			
+			<img src="<?= base_url('assets/img/instansi/header.PNG'); ?>" alt="logo" >
 
+	</div>
+	
 	<h3 style="text-align: center;"><?= $title; ?></h3><br>
 
 	<div class="foto">

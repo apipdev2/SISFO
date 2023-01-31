@@ -105,47 +105,55 @@
                 </div>
 
                 <div class="col-md-6">
+                  <form action="<?= base_url('sisfo/Instansi/updateLogo/'); ?>" method="post" enctype="multipart/form-data">
 
-                    <div class="view-logo col-md-12 bg-light mb-3 d-flex justify-content-center">
-                     <img src="<?= base_url('assets/img/menu/logo-sisfo.png'); ?>" width="100" alt="...">
+                    <div class="view-logo col-md-12 bg-light mb-3 d-flex justify-content-center">                    
+                     <img src="<?= base_url('assets/img/instansi/'.$instansi->logo); ?>" width="150" alt="...">
                     </div>
                     <div class="form-group mb-3 row">
                       <label class="col-3 col-form-label">Logo</label>
                       <div class="col-7">
-                        <input type="file" name="logo" class="form-control" >
+                        <input type="file" name="logo" class="form-control" value="<?= $instansi->logo; ?>" >
                       </div>
                       <div class="col-2">
-                        <button type="button" class="btn btn-success float-end" id="logo"><i class="fas fa-save"></i></button>
+                        <button type="submit" class="btn btn-success float-end" id="logo"><i class="fas fa-save"></i></button>
                       </div>
                     </div>
 
+                  </form>
+
+                   <form action="<?= base_url('sisfo/Instansi/updateHeader/'); ?>" method="post" enctype="multipart/form-data">
                     <div class="view-header col-md-12 bg-light mb-3 d-flex justify-content-center">
-                     <img src="<?= base_url('assets/img/menu/logo-sisfo.png'); ?>" width="100" alt="...">
+                     <img src="<?= base_url('assets/img/instansi/'.$instansi->header); ?>" width="150" alt="...">
                     </div>
 
                     <div class="form-group mb-3 row">
                       <label class="col-md-3 col-form-label">Header</label>
                       <div class="col-md-7">
-                        <input type="file" name="header" class="form-control" >
+                        <input type="file" name="header" class="form-control" value="<?= $instansi->header; ?>" >
                       </div>
                       <div class="col-md-2">
-                        <button type="button" class="btn btn-success float-end" id="header"><i class="fas fa-save"></i></button>
+                        <button type="submit" class="btn btn-success float-end" id="header"><i class="fas fa-save"></i></button>
                       </div>
                     </div>
+                  </form>
 
+
+                  <form action="<?= base_url('sisfo/Instansi/updateTtd/'); ?>" method="post" enctype="multipart/form-data">
                     <div class="view-ttd col-md-12 bg-light mb-3 d-flex justify-content-center">
-                      <img src="<?= base_url('assets/img/menu/logo-sisfo.png'); ?>" width="100" alt="...">
+                      <img src="<?= base_url('assets/img/instansi/'.$instansi->ttd); ?>" width="150" alt="...">
                     </div>
 
                     <div class="form-group mb-3 row">
                       <label class="col-3 col-form-label">TTD</label>
                       <div class="col-7">
-                        <input type="file" name="ttd" class="form-control" >
+                        <input type="file" name="ttd" class="form-control" value="<?= $instansi->ttd; ?>" >
                       </div>
                       <div class="col-2">
-                        <button type="button" class="btn btn-success float-end" id="ttd"><i class="fas fa-save"></i></button>
+                        <button type="submit" class="btn btn-success float-end" id="ttd"><i class="fas fa-save"></i></button>
                       </div>
                     </div>
+                  </form>
 
                     
 

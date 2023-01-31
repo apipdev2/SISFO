@@ -58,6 +58,7 @@ class Pegawai extends CI_Controller {
 				'telp'				=> $this->input->post('telp'),
 				'email'				=> $this->input->post('email'),
 				'status_pegawai'	=> $this->input->post('status_pegawai'),
+				'foto'				=> 'default.jpg',
 			];
 
 			$query = $this->pegawai->insertPegawai($data);
@@ -78,12 +79,13 @@ class Pegawai extends CI_Controller {
 		$id = decrypt_url($id);
 		$data = [
 			'title' => 'Edit Pegawai',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 			'pegawai' => $this->pegawai->getPegawaiById($id)->row(),
 			'jenis_kelamin' => ['Laki-laki','Perempuan'],
 			'status_pegawai' => ['guru','tendik'],
 		];
 		
-		$this->load->view('template/header');
+		$this->load->view('template/header',$data);
 		$this->load->view('template/navbar');
 		$this->load->view('sisfo/pegawai/edit_pegawai',$data);
 		$this->load->view('template/footer');		
@@ -93,6 +95,31 @@ class Pegawai extends CI_Controller {
 	public function update($id)
 	{
 		$id = decrypt_url($id);
+
+		$pegawai = $this->db->get_where('pegawai',['id_pegawai'=>$id])->row();
+		$upload_image = $_FILES['foto']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'jpg|png';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = './assets/img/pegawai/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('foto')) {
+                    $old_image = $pegawai->image;
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/pegawai/'.$old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                   
+                    
+                } else {
+
+                	echo "<script>swal('Galat!', 'File Max 2MB, Format File harus jpg|png');</script>";
+                    // echo $this->upload->dispay_errors();
+                }
+            }
 		$data = [
 				'nip'				=> $this->input->post('nip'),
 				'nik'				=> $this->input->post('nik'),
@@ -108,6 +135,7 @@ class Pegawai extends CI_Controller {
 				'telp'				=> $this->input->post('telp'),
 				'email'				=> $this->input->post('email'),
 				'status_pegawai'	=> $this->input->post('status_pegawai'),
+				'foto'				=> $new_image,
 			];
 
 			$query = $this->pegawai->editPegawai($data,$id);
@@ -131,6 +159,56 @@ class Pegawai extends CI_Controller {
 				$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Terhapus!', 'error');</script>");
 	        	redirect('sisfo/Pegawai');
 			}
+	}
+
+	public function import(){
+    $file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    
+    if(isset($_FILES['upload_file']['name']) && in_array($_FILES['upload_file']['type'], $file_mimes)) {
+        $arr_file = explode('.', $_FILES['upload_file']['name']);
+        $extension = end($arr_file);
+        if('csv' == $extension){
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        }elseif('xls' == $extension){
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        }else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+        $spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
+        $sheetData = $spreadsheet->getSheet(0)->toArray();
+        unset($sheetData[0]);
+        $data = array();
+
+        foreach ($sheetData as $row) {
+        	
+        	$datas['nip'] = $row[1];
+        	$datas['nik'] = $row[2];
+        	$datas['no_kk'] = $row[3];
+        	$datas['nama_lengkap'] = $row[4];
+        	$datas['jenis_kelamin'] = $row[5];
+        	$datas['tempat_lahir'] = $row[6];
+        	$datas['tanggal_lahir'] = date('Y-m-d',strtotime($row[7]));
+        	$datas['alamat'] = $row[8];
+        	$datas['gelar_depan'] = $row[9];
+        	$datas['gelar_belakang'] = $row[10];
+        	$datas['pendidikan_terakhir'] = $row[11];
+        	$datas['email'] = $row[12];
+        	$datas['telp'] = $row[13];
+        	$datas['foto'] = 'default.jpg';
+        	$data[] = $datas;
+        }
+
+        // echo json_encode($data);
+
+        $query = $this->db->insert_batch('pegawai',$data);
+        if ($query) {
+			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Tersimpan!', 'success');</script>");
+        	redirect('sisfo/Pegawai');
+			}else{
+				$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
+	        	redirect('sisfo/Pegawai');
+			}
+      }
 	}
 
 }

@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Peserta_didik extends CI_Controller {
 	public function __construct()
 	{
@@ -27,7 +30,6 @@ class Peserta_didik extends CI_Controller {
 	}
 
 	public function ajax_getKelas($tingkat){
-
 
 		$kelas = $this->riwayatkelas->getKelas($tingkat)->result();
 		echo json_encode($kelas);
@@ -88,6 +90,8 @@ class Peserta_didik extends CI_Controller {
 	    $this->pdf->loadView('sisfo/peserta_didik/cetak_persiswa', $data);
 		// $this->load->view('sisfo/peserta_didik/cetak_perkelas', $data);
 	}
+
+	
 
 }
 

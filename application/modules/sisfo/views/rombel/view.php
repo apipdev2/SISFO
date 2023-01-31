@@ -15,7 +15,7 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="#">Rombel</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="<?= base_url('sisfo/Rombel');?>">Rombel</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
                   </ol>
                 </nav>
@@ -36,26 +36,18 @@
           <div class="row">
             <div class="col-6">
 
-              <div class="form-group mb-3 row">
-                <label class="col-3 col-form-label">Tahun Ajaran</label>
-                <div class="col">
-                  <input type="text" name="id_tahun" class="form-control" value="<?= $tahunajaran->tahun_ajaran; ?>" disabled >
-                </div>
-              </div>
+               <table width="100%">
+                    <tr>
+                      <td>Tahun Ajaran</td><td>:</td><td><b><?= $tahunajaran->tahun_ajaran;?></b></td>
+                    </tr>
+                    <tr>
+                      <td>Tingkat</td>
+                      <td>:</td>
+                      <td><?= $kelas->kelas; ?></td>
+                    </tr>
+                  </table>
 
             </div>
-
-            <div class="col-6">
-
-              <div class="form-group mb-3 row">
-                <label class="col-3 col-form-label">Kelas</label>
-                <div class="col">
-                  <input type="text" name="id_kelas" class="form-control" value="<?= $kelas->kelas; ?>" disabled >
-                </div>
-              </div>
-              
-            </div>
-
           </div>
         </div>           
             <div class="card-body">
@@ -90,14 +82,28 @@
                           <td><?= $row->kelas; ?></td>
                           <td>
                             <?php if ($row->status_siswa  == "Y"): ?>
-                              <div class="fas fa-check-circle text-success"></div>
+                              <div class="fas fa-check-circle text-success" onclick="non('<?= $row->nis;?>')"></div>
                               
                             <?php else : ?>
-                              <div class="fas fa-window-close text-danger"></div>
+                              <div class="fas fa-window-close text-danger" onclick="active('<?= $row->nis;?>')"></div>
                             <?php endif ?>  
                           </td>
                           <td>
-                           <a href="#" data-bs-toggle="modal" data-bs-target="#modal-del<?= $row->id_riwayat;?>" class="fas fa-trash text-danger"></a>
+
+                          <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              Action
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-del<?= $row->id_riwayat;?>" class="dropdown-item">Keluarkan Rombel</a>
+                              </li>
+                              <li>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#mutasi<?= $row->id_riwayat;?>" class="dropdown-item">Mutasi Keluar</a>
+                              </li>
+                            </ul>
+                          </div>                          
+                           
                           </td>
                         </tr>
                       <?php endforeach ?>
@@ -167,6 +173,44 @@
 
 
   <!-- modal del -->
+  <div class="modal modal-blur fade" id="mutasi<?= $row->id_riwayat;?>" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <form action="<?= base_url('sisfo/Rombel/mutasi'); ?>" method="post">
+          <div class="modal-body">
+
+              <input type="hidden" name="nis" value="<?= $row->nis; ?>">
+              <div class="form-group">
+                <label for="">Keterangan</label>
+                <select name="ket" id="" class="form-select">
+                  <option value="" selected disabled>::pilih::</option>
+                  <option value="Mutasi">Mutasi</option>
+                  <option value="Mengundurkan diri">Mengundurkan diri</option>
+                  <option value="Dikeluarkan Sekolah">Dikeluarkan Sekolah</option>
+                  <option value="Meninggal">Meninggal</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="">Alasan</label>
+                <textarea name="alasan" class="form-control"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="">Sekolah Tujuan</label>
+                <input type="text" name="sekolah_tujuan" class="form-control">
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button> 
+            <button class="btn btn-success">Save</button>           
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  <!--  -->
   <div class="modal modal-blur fade" id="modal-del<?= $row->id_riwayat;?>" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -182,30 +226,54 @@
       </div>
     </div>
 
+
   <?php endforeach ?>
 
 
    <!-- import -->
   <div class="modal modal-blur fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-secondary text-light">
-            Import Siswa
-          </div>
           <div class="modal-body">
-
-            <div class="form-group">
-              <label>File import</label>
-              <input type="file" name="file" class="form-control">
-            </div>
-            
-
+              <h3>Download Format Import Siswa: <a href="<?= base_url('assets/import/sample-siswa.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
+              <form action="<?= base_url('sisfo/Rombel/import'); ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id_kelas" value="<?= $kelas->id_kelas; ?>">
+                <div class="form-group">
+                  <label>File Import siswa</label>
+                  <input type="file" name="upload_file" class="form-control">
+                </div>
+                <button type="button" class="btn btn-warning mt-3 link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-info mt-3 float-end">Import Siswa</button>
+              </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
-            <a href="<?= base_url('sisfo/Rombel/hapusPeserta/');?>" class="btn btn-seccess" >Save</a>
-          </div>
+          
         </div>
       </div>
     </div>
+
+    <script>
+      function active(nis){
+        $.ajax({
+          url:'<?= base_url('sisfo/Rombel/active/');?>'+nis,
+          type : 'POST',
+          dataType : 'JSON',
+          success : function(data){
+            location.reload();
+          }
+        });
+      }
+
+      function non(nis){
+        
+        $.ajax({
+          url:'<?= base_url('sisfo/Rombel/non_active/');?>'+nis,
+          type : 'POST',
+          dataType : 'JSON',
+          success : function(data){
+            location.reload();
+          }
+        });
+      }
+    </script>
+
 

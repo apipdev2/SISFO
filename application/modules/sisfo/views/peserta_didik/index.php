@@ -167,8 +167,14 @@
             var html ='';
             for (var i = 0; i < data.length; i++) {
               no++;
+              var status = '';
               var date = new Date(data[i].tanggal_lahir);
               var tanggal_lahir = date.toLocaleDateString('id');
+              if (data[i].status_siswa == 'Y') {
+                status = '<i class="fas fa-check-circle text-success"></i>';
+              } else {
+                 status = '<i class="fas fa-window-close text-danger"></i>';
+              }
               html+='<tr>'
                    +'<td>'+no+'</td>'
                    +'<td>'+data[i].nis+'</td>'
@@ -177,7 +183,7 @@
                    +'<td>'+data[i].tempat_lahir+'</td>'
                    +'<td>'+tanggal_lahir+'</td>'
                    +'<td>'+data[i].kelas+'</td>'
-                   +'<td>'+data[i].status_siswa+'</td>'
+                   +'<td>'+status+'</td>'
                    +'<td><a href="#" onClick="view('+data[i].nis+')" class="fas fa-search text-info"></a> | <a href="#" onClick="print('+data[i].nis+')" class="fas fa-print text-secondary"></a></td>'
                    +'</tr>';
             }

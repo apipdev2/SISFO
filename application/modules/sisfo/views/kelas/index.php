@@ -15,12 +15,10 @@
                 <a href="#" data-bs-toggle="modal" data-bs-target="#modal-add" class="btn btn-success d-none d-sm-inline-block"><i class="fas fa-user-plus"></i>
                     Tambah
                 </a>
-                 <a href="#" class="btn btn-info d-none d-sm-inline-block"><i class="fas fa-download"></i>
+                 <a href="#" data-bs-toggle="modal" data-bs-target="#import" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-download"></i>
                     Import
                 </a>
-                <a href="#" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-print"></i>
-                    Cetak
-                </a>
+                
 
             </div>
           </div>
@@ -44,6 +42,7 @@
                         <th>Nama Kelas</th>
                         <th>Jurusan</th>
                         <th>Kurikulum</th>
+                        <th>Kapasitas</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -54,7 +53,8 @@
                           <td><?= $row->tingkat;?></td>
                           <td><?= $row->kelas;?></td>
                           <td><?= $row->jurusan;?></td>
-                          <td><?= $row->kurikulum;?></td>                          
+                          <td><?= $row->kurikulum;?></td>
+                          <td><?= $row->kapasitas;?></td>                           
                           <td>
                             <a href="" data-bs-toggle="modal" data-bs-target="#modal-edit<?= $row->id_kelas;?>" class="fas fa-edit text-info"></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#modal-del<?= $row->id_kelas;?>" class="fas fa-trash text-danger"></a>
@@ -73,12 +73,32 @@
     </div>
   </div>
 
+   <!-- modal import -->
+  <div class="modal modal-blur fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+              <h3>Download Format Import Kelas: <a href="<?= base_url('assets/import/sample-kelas.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
+              <form action="<?= base_url('sisfo/Kelas/import'); ?>" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label>File Import Kelas</label>
+                  <input type="file" name="upload_file" class="form-control">
+                </div>
+                 <button type="button" class="btn btn-warning mt-3 link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-info mt-3 float-end">Import</button>
+              </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
 
   <!-- add modal -->
   <div class="modal modal-blur fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-secondary text-light">
             <h5 class="modal-title">Tambah <?= $title; ?></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -116,6 +136,11 @@
                 <input type="text" name="kelas" class="form-control">
               </div>
 
+              <div class="form-group">
+                <label>Kapasias</label>
+                <input type="number" name="kapasitas" class="form-control">
+              </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
@@ -133,7 +158,7 @@
    <div class="modal modal-blur fade" id="modal-edit<?= $row->id_kelas;?>" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-secondary text-light">
             <h5 class="modal-title">Edit <?= $title; ?></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -174,6 +199,11 @@
               <div class="form-group">
                 <label>Nama Kelas</label>
                 <input type="text" name="kelas" class="form-control" value="<?= $row->kelas; ?>">
+              </div>
+
+              <div class="form-group">
+                <label>Kapasias</label>
+                <input type="number" name="kapasitas" class="form-control" value="<?= $row->kapasitas; ?>">
               </div>
 
           </div>

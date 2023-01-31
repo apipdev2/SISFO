@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title><?= $title; ?> | SISFO</title>
     <!-- favicon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/menu/logo-sisfo.png'); ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/instansi/'.$instansi->logo); ?>">
     <!-- CSS files -->
     <link href="<?= base_url('assets/dist/css/tabler.min.css');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/tabler-flags.min.css');?>" rel="stylesheet"/>
@@ -26,7 +26,8 @@
     <!-- data table -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-    
+    <!-- chart js -->
+    <script src="<?= base_url('assets/dist/libs/chartjs/Chart.js');?>"></script>
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -46,7 +47,7 @@
           </button>
           <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href="<?= base_url('Home'); ?>">
-              <img src="<?= base_url('assets/img/logo.png'); ?>" width="150" height="32" alt="Tabler" class="navbar-brand-image">
+              <img src="<?= base_url('assets/img/instansi/'.$instansi->logo); ?>" width="150" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
             SISFO | <?= $instansi->nama_sekolah;?>
           </h1>
@@ -70,7 +71,7 @@
 
             <div class="nav-item dropdown">
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                <span class="avatar avatar-sm" style="background-image: url(<?= base_url('assets/img/user.png');?>)"></span>
+                <span class="avatar avatar-sm" style="background-image: url(<?= base_url('assets/img/user/'.$this->session->userdata('image'));?>)"></span>
                 <div class="d-none d-xl-block ps-2">
                   <div><?= $this->session->userdata('username'); ?></div>
                   <div class="mt-1 small text-muted"><?= $this->session->userdata('email'); ?></div>

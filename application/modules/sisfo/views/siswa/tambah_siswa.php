@@ -40,6 +40,25 @@
                         <div class="col-6">
 
                           <div class="form-group mb-3 row mb-3 row">
+                            <label class="col-3 col-form-label">Jenis Registrasi</label>
+                            <div class="col">
+                              <select name="jenis_registrasi" class="form-select">
+                                <option value="" selected disabled>::pilih::</option>
+                                <?php foreach ($jenis_registrasi as $row): ?>
+                                  <option value="<?= $row; ?>"><?= $row; ?></option>
+                                <?php endforeach ?>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="form-group mb-3 row mb-3 row">
+                            <label class="col-3 col-form-label">NIS</label>
+                            <div class="col">
+                              <input type="text" name="nis" class="form-control" >
+                            </div>
+                          </div>
+
+                          <div class="form-group mb-3 row mb-3 row">
                             <label class="col-3 col-form-label">NISN</label>
                             <div class="col">
                               <input type="text" name="nisn" class="form-control" >

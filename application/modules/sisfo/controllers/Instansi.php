@@ -47,6 +47,96 @@ class Instansi extends CI_Controller {
 		}
 	}
 
+	public function updateLogo()
+	{
+		$upload_image = $_FILES['logo']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'jpg|png';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = './assets/img/instansi/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('logo')) {
+                    $old_image = $peserta->image;
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/instansi/'.$old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                   
+                    
+                } else {
+                    echo $this->upload->dispay_errors();
+                }
+            }
+
+        $this->db->where('id_identitas',1);
+		$this->db->update('identitas',['logo'=>$new_image]);
+		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Disimpan!', 'success');</script>");
+        	redirect('sisfo/Instansi');
+	}
+
+	public function updateHeader()
+	{
+		$upload_image = $_FILES['header']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'jpg|png';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = './assets/img/instansi/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('header')) {
+                    $old_image = $peserta->image;
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/instansi/'.$old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                   
+                    
+                } else {
+                    echo $this->upload->dispay_errors();
+                }
+            }
+
+        $this->db->where('id_identitas',1);
+		$this->db->update('identitas',['header'=>$new_image]);
+		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Disimpan!', 'success');</script>");
+        	redirect('sisfo/Instansi');
+	}
+
+	public function updateTtd()
+	{
+		$upload_image = $_FILES['ttd']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'jpg|png';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = './assets/img/instansi/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('ttd')) {
+                    $old_image = $peserta->image;
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/instansi/'.$old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                   
+                    
+                } else {
+                    echo $this->upload->dispay_errors();
+                }
+            }
+
+        $this->db->where('id_identitas',1);
+		$this->db->update('identitas',['ttd'=>$new_image]);
+		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Disimpan!', 'success');</script>");
+        	redirect('sisfo/Instansi');
+	}
+
 	
 
 }

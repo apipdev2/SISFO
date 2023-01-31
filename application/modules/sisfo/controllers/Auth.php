@@ -20,6 +20,8 @@ class Auth extends CI_Controller {
             	$data = [
                     'title'     => 'Login Page',
                     'tahun_ajaran'=> $this->db->get('tahunajaran')->result(),
+                    'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
+                    'semester' => ['Ganjil','Genap'],
                 ];
 
 			$this->load->view('sisfo/auth/index', $data);
@@ -37,6 +39,7 @@ class Auth extends CI_Controller {
         $email      = $this->input->post('email');
         $password   = $this->input->post('password');
         $tahunajaran= $this->input->post('id_tahun');
+        $semester = $this->input->post('semester');
         $user = $this->db->get_where('tbl_user', ['email' => $email])->row();
 
        
@@ -54,6 +57,7 @@ class Auth extends CI_Controller {
                             'id_level'    => $user->id_level,
                             'image'       => $user->image,
                             'id_tahun'    => $tahunajaran,
+                            'semester'    => $semester,
                             'logged_in'   => TRUE
                             ];
 

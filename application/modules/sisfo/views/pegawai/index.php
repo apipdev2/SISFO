@@ -15,6 +15,9 @@
                 <a href="<?= base_url('sisfo/Pegawai/tambah'); ?>" class="btn btn-success d-none d-sm-inline-block"><i class="fas fa-user-plus"></i>
                     Tambah
                 </a>
+                 <a href="#" data-bs-toggle="modal" data-bs-target="#import" class="btn btn-info d-none d-sm-inline-block"><i class="fas fa-download"></i>
+                    Import
+                </a>
                 <a href="#" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-print"></i>
                     Cetak
                 </a>
@@ -37,6 +40,7 @@
                     <thead>
                       <tr>
                         <th>No</th>
+                        <th>Foto</th>
                         <th>NIP</th>
                         <th>Nama</th>
                         <th>JK</th>
@@ -50,7 +54,9 @@
                       <?php $no=1; foreach ($pegawai as $row): ?>
                         <tr>
                           <td><?= $no++;?></td>
-                           <td><?= $row->nip; ?></td>
+                          <td>
+                            <img src="<?= base_url('assets/img/pegawai/'.$row->foto); ?>" alt="foto" width="60"></td>
+                          <td><?= $row->nip; ?></td>
                           <td><?= $row->nama_lengkap; ?></td>
                           <td><?= $row->jenis_kelamin; ?></td>
                           <td><?= $row->tempat_lahir; ?></td>
@@ -74,6 +80,26 @@
       <!-- end content -->
     </div>
   </div>
+
+   <!-- modal import -->
+  <div class="modal modal-blur fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+              <h3>Download Format Import Pegawai: <a href="<?= base_url('assets/import/sample-pegawai.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
+              <form action="<?= base_url('sisfo/Pegawai/import'); ?>" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label>File Import Pegawai</label>
+                  <input type="file" name="upload_file" class="form-control">
+                </div>
+                 <button type="button" class="btn btn-warning mt-3 link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-info mt-3 float-end">Import</button>
+              </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
 
    <?php foreach ($pegawai as $row): ?>
     

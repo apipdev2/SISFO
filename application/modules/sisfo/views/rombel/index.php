@@ -28,7 +28,7 @@
   <div class="page-body">
     <div class="container-xl">
 
-        <div class="card">
+        <div class="">
             <div class="card-body">
 
              <!-- col -->
@@ -68,7 +68,7 @@
                                       'id_tahun'=>$this->session->userdata('id_tahun'),
                                       'id_kelas'=>$rombel->id_kelas,
                                       ])->num_rows();
-                               echo $jml.' Siswa';
+                               echo $jml.' / '.$rombel->kapasitas;
                               ?>
                             </div>
                               <a href="<?= base_url('sisfo/Rombel/view/'.encrypt_url($rombel->id_kelas)); ?>" ><i class="fas fa-search"></i></a>
