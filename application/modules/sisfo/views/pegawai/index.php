@@ -18,7 +18,7 @@
                  <a href="#" data-bs-toggle="modal" data-bs-target="#import" class="btn btn-info d-none d-sm-inline-block"><i class="fas fa-download"></i>
                     Import
                 </a>
-                <a href="#" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-print"></i>
+                <a href="<?= base_url('sisfo/Pegawai/cetak_pegawai'); ?>" class="btn btn-secondary d-none d-sm-inline-block" target="_blank"><i class="fas fa-print"></i>
                     Cetak
                 </a>
 

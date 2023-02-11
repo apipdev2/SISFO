@@ -15,6 +15,8 @@
     <link href="<?= base_url('assets/dist/css/tabler-payments.min.css');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/tabler-vendors.min.css');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/demo.min.css');?>" rel="stylesheet"/>
+    <!-- jqueryui   -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
     <!-- data table -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"/>
     <!-- font awesome -->
@@ -23,6 +25,7 @@
     <!-- jquery -->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
     <!-- data table -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>

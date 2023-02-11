@@ -67,6 +67,7 @@
                                $jml = $this->db->get_where('riwayatkelas',[
                                       'id_tahun'=>$this->session->userdata('id_tahun'),
                                       'id_kelas'=>$rombel->id_kelas,
+                                      'status_siswa' =>'Y'
                                       ])->num_rows();
                                echo $jml.' / '.$rombel->kapasitas;
                               ?>

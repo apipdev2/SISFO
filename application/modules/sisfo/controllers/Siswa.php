@@ -25,6 +25,18 @@ class Siswa extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+	public function get_prov()
+	{		
+			$prov = $this->input->post('provinsi');
+            $result = $this->db->like('prov_name', $prov, 'both')->order_by('prov_name', 'ASC')->limit(10)->get('provinces')->result();
+            if (count($result) > 0) {
+            foreach ($result as $row)
+                $arr_result[] = $row->prov_name;
+                echo json_encode($arr_result);
+            }
+       
+	}
+
 	public function tambah()
 	{	
 		$data =[
@@ -51,6 +63,7 @@ class Siswa extends CI_Controller {
 		];
 
 		$this->form_validation->set_rules('nik', 'NIK', 'required|min_length[1]|max_length[16]');
+		$this->form_validation->set_rules('nisn', 'Nisn', 'required');
 		$this->form_validation->set_rules('nama_peserta', 'Nama', 'required');
 
 		if ($this->form_validation->run()== FALSE) {
@@ -65,7 +78,6 @@ class Siswa extends CI_Controller {
 				'id_tahun' 		 => $this->session->userdata('id_tahun'),
 				'tanggal_daftar' => date('Y-m-d'),
 				'jenis_registrasi' => $this->input->post('jenis_registrasi'),
-				'nis' 			 => $this->input->post('nis'),
 				'nik' 			 => $this->input->post('nik'),
 				'nama_peserta'   => $this->input->post('nama_peserta'),
 				'jenis_kelamin'  => $this->input->post('jenis_kelamin'),
@@ -76,6 +88,13 @@ class Siswa extends CI_Controller {
 				'agama' => $this->input->post('agama'),
 				'berkebutuhan_khusus' => $this->input->post('berkebutuhan_khusus'),
 				'alamat' => $this->input->post('alamat'),
+				'rt' => $this->input->post('rt'),
+				'rw' => $this->input->post('rw'),
+				'desa' => $this->input->post('desa'),
+				'kecamatan' => $this->input->post('kecamatan'),
+				'kabupaten' => $this->input->post('kabupaten'),
+				'provinsi' => $this->input->post('provinsi'),
+				'kode_pos' => $this->input->post('kode_pos'),
 				'tempat_tinggal' => $this->input->post('tempat_tinggal'),
 				'moda_transportasi' => $this->input->post('moda_transportasi'),
 				'anak_ke' => $this->input->post('anak_ke'),
@@ -197,6 +216,13 @@ class Siswa extends CI_Controller {
 				'agama' => $this->input->post('agama'),
 				'berkebutuhan_khusus' => $this->input->post('berkebutuhan_khusus'),
 				'alamat' => $this->input->post('alamat'),
+				'rt' => $this->input->post('rt'),
+				'rw' => $this->input->post('rw'),
+				'desa' => $this->input->post('desa'),
+				'kecamatan' => $this->input->post('kecamatan'),
+				'kabupaten' => $this->input->post('kabupaten'),
+				'provinsi' => $this->input->post('provinsi'),
+				'kode_pos' => $this->input->post('kode_pos'),
 				'tempat_tinggal' => $this->input->post('tempat_tinggal'),
 				'moda_transportasi' => $this->input->post('moda_transportasi'),
 				'anak_ke' => $this->input->post('anak_ke'),
@@ -278,75 +304,85 @@ class Siswa extends CI_Controller {
         $spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
         $sheetData = $spreadsheet->getSheet(0)->toArray();
         unset($sheetData[0]);
-        $data = array();
 
-        foreach ($sheetData as $row) {
-        	$datas['id_tahun'] = $this->session->userdata('id_tahun');
-        	$datas['nis'] = $row[1];
-        	$datas['nisn'] = $row[2];
-        	$datas['nik'] = $row[3];
-        	$datas['no_kk'] = $row[4];
-        	$datas['nama_peserta'] = $row[5];
-        	$datas['tempat_lahir'] = $row[6];
-        	$datas['tanggal_lahir'] = $row[7];
-        	$datas['jenis_kelamin'] = $row[8];
-        	$datas['asal_sekolah'] = $row[9];
-        	$datas['no_registrasi_akta_lahir'] = $row[10];
-        	$datas['agama'] = $row[11];
-        	$datas['berkebutuhan_khusus'] = $row[12];
-        	$datas['alamat'] = $row[13];
-        	$datas['rt'] = $row[14];
-        	$datas['rw'] = $row[15];
-        	$datas['desa'] = $row[16];
-        	$datas['kecamatan'] = $row[17];
-        	$datas['kabupaten'] = $row[18];
-        	$datas['prov'] = $row[19];
-        	$datas['tempat_tinggal'] = $row[20];
-        	$datas['moda_transportasi'] = $row[21];
-        	$datas['anak_ke'] = $row[22];
-        	$datas['jumlah_saudara_kandung'] = $row[23];
-        	$datas['nomor_hp'] = $row[24];
-        	$datas['email'] = $row[25];
-        	$datas['tinggi_badan'] = $row[26];
-        	$datas['berat_badan'] = $row[27];
-        	$datas['jarak'] = $row[28];
-        	$datas['size_jurusan'] = $row[29];
-        	$datas['size_olahraga'] = $row[30];
-        	$datas['nama_ayah'] = $row[31];
-        	$datas['nik_ayah'] = $row[32];
-        	$datas['tempat_lahir_ayah'] = $row[33];
-        	$datas['tanggal_lahir_ayah'] = $row[34];
-        	$datas['pendidikan_ayah'] = $row[35];
-        	$datas['pekerjaan_ayah'] = $row[36];
-        	$datas['penghasilan_bulanan_ayah'] = $row[37];
-        	$datas['berkebutuhan_khusus_ayah'] = $row[38];
-        	$datas['no_ayah'] = $row[39];
-        	$datas['nik_ibu'] = $row[40];
-        	$datas['nama_ibu'] = $row[41];
-        	$datas['tempat_lahir_ibu'] = $row[42];
-        	$datas['tanggal_lahir_ibu'] = $row[43];
-        	$datas['pendidikan_ibu'] = $row[44];
-        	$datas['pekerjaan_ibu'] = $row[45];
-        	$datas['penghasilan_bulanan_ibu'] = $row[46];
-        	$datas['berkebutuhan_khusus_ibu'] = $row[47];
-        	$datas['no_ibu'] = $row[48];
-        	$datas['nama_wali'] = $row[49];
-        	$datas['nik_wali'] = $row[50];
-        	$datas['tempat_lahir_wali'] = $row[51];
-        	$datas['tanggal_lahir_wali'] = $row[52];
-        	$datas['penghasilan_bulanan_wali'] = $row[53];
-        	$datas['no_wali'] = $row[54];
-        	$data[] = $datas;
+        foreach ($sheetData as $row) {      	
+        	
+        	$data = [
+        		'id_tahun' => $this->session->userdata('id_tahun'),
+	        	'nis' => $row[1],
+	        	'nisn' => $row[2],
+	        	'nik' => $row[3],
+	        	'no_kk' => $row[4],
+	        	'nama_peserta' => $row[5],
+	        	'tempat_lahir' => $row[6],
+	        	'tanggal_lahir' => $row[7],
+	        	'jenis_kelamin' => $row[8],
+	        	'asal_sekolah' => $row[9],
+	        	'no_registrasi_akta_lahir' => $row[10],
+	        	'agama' => $row[11],
+	        	'berkebutuhan_khusus' => $row[12],
+	        	'alamat' => $row[13],
+	        	'rt' => $row[14],
+	        	'rw' => $row[15],
+	        	'desa' => $row[16],
+	        	'kecamatan' => $row[17],
+	        	'kabupaten' => $row[18],
+	        	'provinsi' => $row[19],
+	        	'tempat_tinggal' => $row[20],
+	        	'moda_transportasi' => $row[21],
+	        	'anak_ke' => $row[22],
+	        	'jumlah_saudara_kandung' => $row[23],
+	        	'nomor_hp' => $row[24],
+	        	'email' => $row[25],
+	        	'tinggi_badan' => $row[26],
+	        	'berat_badan' => $row[27],
+	        	'jarak' => $row[28],
+	        	'size_jurusan' => $row[29],
+	        	'size_olahraga' => $row[30],
+	        	'nama_ayah' => $row[31],
+	        	'nik_ayah' => $row[32],
+	        	'tempat_lahir_ayah' => $row[33],
+	        	'tanggal_lahir_ayah' => $row[34],
+	        	'pendidikan_ayah' => $row[35],
+	        	'pekerjaan_ayah' => $row[36],
+	        	'penghasilan_bulanan_ayah' => $row[37],
+	        	'berkebutuhan_khusus_ayah' => $row[38],
+	        	'no_ayah' => $row[39],
+	        	'nik_ibu' => $row[40],
+	        	'nama_ibu' => $row[41],
+	        	'tempat_lahir_ibu' => $row[42],
+	        	'tanggal_lahir_ibu' => $row[43],
+	        	'pendidikan_ibu' => $row[44],
+	        	'pekerjaan_ibu' => $row[45],
+	        	'penghasilan_bulanan_ibu' => $row[46],
+	        	'berkebutuhan_khusus_ibu' => $row[47],
+	        	'no_ibu' => $row[48],
+	        	'nama_wali' => $row[49],
+	        	'nik_wali' => $row[50],
+	        	'tempat_lahir_wali' => $row[51],
+	        	'tanggal_lahir_wali' => $row[52],
+        		'penghasilan_bulanan_wali' => $row[53],
+        		'penghasilan_bulanan_wali' => $row[53],
+        		'no_wali' => $row[54],
+        	];
+
+        	$cek = $this->db->get_where('siswa',[
+        		'nisn' => $row[2],
+	        	'nik' => $row[3],
+        	])->num_rows();
+
+        	if ($cek > 0) {
+        		$this->session->set_flashdata('message', "<script>swal('Alert!', 'Data Sudah ada!', 'error');</script>");
+        	}else{
+        		$this->db->insert('siswa',$data);
+        		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Import !', 'success');</script>");
+        	}
+
         }
-
-        $query = $this->db->insert_batch('siswa',$data);
-        if ($query) {
-		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Import data!', 'success');</script>");
-    	redirect('sisfo/Siswa');
-		}else{
-			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Import data!', 'error');</script>");
-        	redirect('sisfo/Siswa');
-		}
+    		redirect('sisfo/Siswa');
+        
+		
+		
 
       }
 	}

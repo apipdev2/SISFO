@@ -34,7 +34,7 @@
           <div class="card">
             
             <div class="card-body">
-              <form action="<?= base_url('sisfo/Phsiswa/storephsiswa'); ?>" method="post">
+              <form action="" method="post">
             	<div class="col-md-6">
                   
                   <table width="100%">
@@ -46,6 +46,7 @@
                       <td>:</td>
                       <td>
                         <input type="date" name="tanggal">
+                        <?= form_error('tanggal', '<small class="text-danger pl-3">', '</small>'); ?>
                       </td>
                     </tr>
                   </table>

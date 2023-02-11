@@ -145,6 +145,52 @@
                           </div>
 
                           <div class="form-group mb-3 row">
+                            <label class="col-3 col-form-label">Rt/Rw</label>
+                            <div class="col-4">
+                              <input type="number" name="rt" class="form-control" placeholder="Rt" value="<?= $siswa->rt; ?>">
+                            </div>
+                            <div class="col-5">
+                              <input type="number" name="rw" class="form-control" placeholder="Rw" value="<?= $siswa->rw; ?>">
+                            </div>
+                          </div>
+
+                          <div class="form-group mb-3 row">
+                            <label class="col-3 col-form-label">Desa / Kelurahan</label>
+                            <div class="col">
+                              <input type="text" name="desa" class="form-control" value="<?= $siswa->desa; ?>">
+                            </div>
+                          </div>
+
+                          <div class="form-group mb-3 row">
+                            <label class="col-3 col-form-label">Kecamatan</label>
+                            <div class="col">
+                              <input type="text" name="kecamatan" class="form-control" value="<?= $siswa->kecamatan; ?>">
+                            </div>
+                          </div>
+
+                          <div class="form-group mb-3 row">
+                            <label class="col-3 col-form-label">Kabupaten / Kota</label>
+                            <div class="col">
+                              <input type="text" name="kabupaten" id="kabupaten" class="form-control" value="<?= $siswa->kabupaten; ?>">
+                            </div>
+                          </div>
+
+                          <div class="form-group mb-3 row">
+                            <label class="col-3 col-form-label">Prov / Kode Pos</label>
+                            <div class="col-5">
+                              <input type="text" name="provinsi" id="provinsi" class="form-control" placeholder="Provinsi" value="<?= $siswa->provinsi; ?>">
+                            </div>
+                            <div class="col-4">
+                              <input type="text" name="kode_pos" class="form-control" placeholder="Kode Pose" value="<?= $siswa->kode_pos; ?>">
+                            </div>
+                          </div>
+
+                          
+                        </div>
+
+                        <div class="col-6">
+
+                          <div class="form-group mb-3 row">
                             <label class="col-3 col-form-label">Tempat Tinggal</label>
                             <div class="col">
                               <select  name="tempat_tinggal" class="form-control">
@@ -189,10 +235,6 @@
                               </select>
                             </div>
                           </div>
-
-                        </div>
-
-                        <div class="col-6">
 
                           <div class="form-group mb-3 row">
                             <label class="col-3 col-form-label">Berkebutuhan Khusus</label>
@@ -614,6 +656,24 @@
   </div>
 
 
- 
+ <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+   <script type="text/javascript">
+
+      $( "#provinsi" ).autocomplete({
+        source: function(req, res){
+
+          $.ajax({
+            url : "<?= base_url('sisfo/Siswa/get_prov/?');?>",
+            dataType : "JSON",
+            method : "POST",
+            data :{provinsi:req.term},
+            success: function(data){
+                res(data);
+            }
+          });
+        }
+      });
+       
+    </script>
 
 

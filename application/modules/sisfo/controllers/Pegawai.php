@@ -112,6 +112,23 @@ class Pegawai extends CI_Controller {
                         unlink(FCPATH . 'assets/img/pegawai/'.$old_image);
                     }
                     $new_image = $this->upload->data('file_name');
+                    $data = [
+						'nip'				=> $this->input->post('nip'),
+						'nik'				=> $this->input->post('nik'),
+						'no_kk'				=> $this->input->post('no_kk'),
+						'nama_lengkap'		=> $this->input->post('nama_lengkap'),
+						'gelar_depan'		=> $this->input->post('gelar_depan'),
+						'gelar_belakang'	=> $this->input->post('gelar_belakang'),
+						'pendidikan_terakhir'=> $this->input->post('pendidikan_terakhir'),
+						'jenis_kelamin'		=> $this->input->post('jenis_kelamin'),
+						'tempat_lahir'		=> $this->input->post('tempat_lahir'),
+						'tanggal_lahir'		=> $this->input->post('tanggal_lahir'),
+						'alamat'			=> $this->input->post('alamat'),
+						'telp'				=> $this->input->post('telp'),
+						'email'				=> $this->input->post('email'),
+						'status_pegawai'	=> $this->input->post('status_pegawai'),
+						'foto'				=> $new_image,
+						];
                    
                     
                 } else {
@@ -120,23 +137,22 @@ class Pegawai extends CI_Controller {
                     // echo $this->upload->dispay_errors();
                 }
             }
-		$data = [
-				'nip'				=> $this->input->post('nip'),
-				'nik'				=> $this->input->post('nik'),
-				'no_kk'				=> $this->input->post('no_kk'),
-				'nama_lengkap'		=> $this->input->post('nama_lengkap'),
-				'gelar_depan'		=> $this->input->post('gelar_depan'),
-				'gelar_belakang'	=> $this->input->post('gelar_belakang'),
-				'pendidikan_terakhir'=> $this->input->post('pendidikan_terakhir'),
-				'jenis_kelamin'		=> $this->input->post('jenis_kelamin'),
-				'tempat_lahir'		=> $this->input->post('tempat_lahir'),
-				'tanggal_lahir'		=> $this->input->post('tanggal_lahir'),
-				'alamat'			=> $this->input->post('alamat'),
-				'telp'				=> $this->input->post('telp'),
-				'email'				=> $this->input->post('email'),
-				'status_pegawai'	=> $this->input->post('status_pegawai'),
-				'foto'				=> $new_image,
-			];
+				$data = [
+						'nip'				=> $this->input->post('nip'),
+						'nik'				=> $this->input->post('nik'),
+						'no_kk'				=> $this->input->post('no_kk'),
+						'nama_lengkap'		=> $this->input->post('nama_lengkap'),
+						'gelar_depan'		=> $this->input->post('gelar_depan'),
+						'gelar_belakang'	=> $this->input->post('gelar_belakang'),
+						'pendidikan_terakhir'=> $this->input->post('pendidikan_terakhir'),
+						'jenis_kelamin'		=> $this->input->post('jenis_kelamin'),
+						'tempat_lahir'		=> $this->input->post('tempat_lahir'),
+						'tanggal_lahir'		=> $this->input->post('tanggal_lahir'),
+						'alamat'			=> $this->input->post('alamat'),
+						'telp'				=> $this->input->post('telp'),
+						'email'				=> $this->input->post('email'),
+						'status_pegawai'	=> $this->input->post('status_pegawai'),
+				];
 
 			$query = $this->pegawai->editPegawai($data,$id);
 			if ($query) {
@@ -209,6 +225,22 @@ class Pegawai extends CI_Controller {
 	        	redirect('sisfo/Pegawai');
 			}
       }
+	}
+
+	public function cetak_pegawai()
+	{	
+		$data = [
+			'title' => 'Data Pegawai',
+			'pegawai' => $this->pegawai->getPegawai()->result(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
+		];
+
+		$this->load->library('Pdf');
+	    $this->pdf->setFileName = "Data Pegawai.pdf";
+	    $this->pdf->setPaper('A4', 'Portrait');
+		$this->pdf->loadView('sisfo/pegawai/cetak_pegawai',$data);
+
+		// $this->load->view('sisfo/pegawai/cetak_pegawai',$data);
 	}
 
 }

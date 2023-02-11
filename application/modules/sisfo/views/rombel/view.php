@@ -62,6 +62,7 @@
                     <thead>
                       <tr>
                         <th>No</th>
+                        <th>NIS</th>
                         <th>Nama</th>
                         <th>JK</th>
                         <th>Tempat Lahir</th>
@@ -75,8 +76,9 @@
                       <?php $no=1; foreach ($pd as $row): ?>
                         <tr>
                           <td><?= $no++;?></td>
+                          <td><?= $row->nis; ?></td>
                           <td><?= $row->nama_peserta; ?></td>
-                           <td><?= $row->jenis_kelamin; ?></td>
+                          <td><?= $row->jenis_kelamin; ?></td>
                           <td><?= $row->tempat_lahir; ?></td>
                           <td><?= date('d-m-Y',strtotime($row->tanggal_lahir)); ?></td>
                           <td><?= $row->kelas; ?></td>
@@ -133,7 +135,7 @@
             <input type="hidden" name="id_kelas" value="<?= $kelas->id_kelas; ?>">
 
              <div class="table-responsive">
-                <table class="table datatable" id="dt">
+                <table class="table datatable" id="datatabel" width="100%">
                  <thead>
                    <tr>
                      <td>#</td>
@@ -235,7 +237,7 @@
       <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
-              <h3>Download Format Import Siswa: <a href="<?= base_url('assets/import/sample-siswa.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
+              <h3>Download Format Import Siswa: <a href="<?= base_url('assets/import/Data Siswa.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
               <form action="<?= base_url('sisfo/Rombel/import'); ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id_kelas" value="<?= $kelas->id_kelas; ?>">
                 <div class="form-group">
@@ -274,6 +276,12 @@
           }
         });
       }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+          $('#datatabel').DataTable();
+      });
     </script>
 
 

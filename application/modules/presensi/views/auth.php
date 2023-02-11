@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+     <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/instansi/'.$sekolah->logo); ?>">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -64,8 +66,8 @@
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="submit" class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0"><a href="<?= base_url('home'); ?>"
-                class="link-danger">Home</a></p>
+            <a href="<?= base_url('home'); ?>"
+                class="btn btn-info btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Home</a>
           </div>
 
         </form>

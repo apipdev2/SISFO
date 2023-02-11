@@ -190,7 +190,6 @@
             var no =0;
             for (var i = 0; i < data.length; i++) {
               no++;
-              console.log(data);
               html+='<tr>'
                   +'<td>'+no+'</td>'
                   +'<td>'+data[i].nis+'</td>'
@@ -200,7 +199,7 @@
                   +'<td>'+data[i].I+'</td>'
                   +'<td>'+data[i].S+'</td>'
                   +'<td>'+data[i].A+'</td>'
-                  +'<td><button class="btn btn-sm btn-info"><i class="fas fa-search"></i></button></td>'
+                  +'<td><button class="btn btn-sm btn-info" onclick="detail('+data[i].nis+','+bln+','+thn+')"><i class="fas fa-search"></i></button></td>'
                   +'</tr>';
             }
             $('#phsiswa').html(html);
@@ -208,14 +207,21 @@
         });
       });
 
+      function detail(nis, bln, thn){
+        window.location.href = "<?= base_url('sisfo/Phsiswa/detailPH/');?>"+nis+'/'+bln+'/'+thn;
+      }
+
       function addPH(){
        let id_kelas = $('#id_kelas').val();
         window.location.href = "<?= base_url('sisfo/Phsiswa/addPH/');?>"+id_kelas;
       }
 
       function cetakPH(){
-       let id_kelas = $('#id_kelas').val();
-        window.location.href = "<?= base_url('sisfo/Phsiswa/addPH/');?>"+id_kelas;
+       var id_kelas = $('#id_kelas').val();
+       var bln = $('#bln').val();
+       var thn = $('#thn').val();
+
+         window.open("<?= base_url('sisfo/Phsiswa/cetak_ph/');?>"+id_kelas+'/'+bln+'/'+thn);
       }
 
 </script>

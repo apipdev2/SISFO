@@ -155,7 +155,7 @@
                       <label class="col-3 col-form-label">Foto</label>
                       <div class="col">
                         <img class="img-preview img-fluid mb-3 col-sm-4" alt="foto" src="<?= base_url('assets/img/pegawai/'.$pegawai->foto); ?>" width="80">
-                        <input type="file" name="foto" class="form-control" value ="<?= $pegawai->foto; ?>" >
+                        <input type="file" name="foto" class="form-control" >
                       </div>
                     </div>
 

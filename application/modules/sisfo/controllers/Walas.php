@@ -33,15 +33,31 @@ class Walas extends CI_Controller {
 			'id_kelas'  => $this->input->post('id_kelas'),
 		];
 
-		$query = $this->walas->addWalas($data);
+		$id_guru  = $this->input->post('id_guru');
+		$id_kelas  = $this->input->post('id_kelas');
 
-		if ($query) {
-			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Tersimpan!', 'success');</script>");
+		$q ="SELECT * FROM walikelas WHERE id_guru = ".$id_guru." OR id_kelas = ".$id_kelas;
+		$cek = $this->db->query($q)->num_rows();
+
+		var_dump($cek);
+		if ($cek > 0) {
+			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Kelas/Guru sudah terisi!', 'error');</script>");
         	redirect('sisfo/Walas');
 		}else{
-			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
-        	redirect('sisfo/Walas');
+
+			$query = $this->walas->addWalas($data);
+
+			if ($query) {
+				$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Tersimpan!', 'success');</script>");
+	        	redirect('sisfo/Walas');
+			}else{
+				$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
+	        	redirect('sisfo/Walas');
+			}
+
 		}
+
+		
 	}
 
 	public function edit($id)
@@ -76,6 +92,24 @@ class Walas extends CI_Controller {
 			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Terhapus!', 'error');</script>");
         	redirect('sisfo/Walas');
 		}
+	}
+
+	//ceta walas
+	public function cetak()
+	{
+		$data= [
+			'title' => 'Data Walas',
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
+			'tahunajaran' => $this->db->get_where('tahunajaran',['id_tahun'=> $this->session->userdata('id_tahun')])->row(),
+			'walas' => $this->walas->getWalas()->result(),
+		];
+
+		$this->load->library('Pdf');
+	    $this->pdf->setFileName = "Data Walas.pdf";
+	    $this->pdf->setPaper('A4', 'Portrait');
+	    $this->pdf->loadView('sisfo/Walas/cetak_walas', $data);
+		// $this->load->view('sisfo/Walas/cetak_walas',$data);
+		// echo json_encode($data);
 	}
 
 }

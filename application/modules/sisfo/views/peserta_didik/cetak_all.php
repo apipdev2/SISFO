@@ -12,14 +12,14 @@
 		}
 		.demo-table {
 			border-collapse: collapse;
-			font-size: 12px;
+			font-size: 11px;
 			color: #444;
 		}
 
 
 		.demo-table ,th ,td{
 			border:1px solid #95a5a6;
-			padding: 7px 17px;
+			padding: 5px 8px;
 		}
 		.demo-table tr:nth-child(even) {
 		    background-color: #f2f2f2;
@@ -75,8 +75,7 @@
 
 	<table class="title" width="50%">
 		<tr><th>Tahun Ajaran</th><th>:</th><th><?= $tahunajaran->tahun_ajaran;?></th></tr>
-		<tr><th>Jurusan</th><th>:</th><th><?= $kelas->jurusan;?></th></tr>
-		<tr><th>Kelas</th><th>:</th><th><?= $kelas->kelas;?></th></tr>
+		
 	</table>
 	<br>
 

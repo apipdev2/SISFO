@@ -64,6 +64,7 @@ class Instansi extends CI_Controller {
                         unlink(FCPATH . 'assets/img/instansi/'.$old_image);
                     }
                     $new_image = $this->upload->data('file_name');
+                    $this->db->set('logo', $new_image);
                    
                     
                 } else {
@@ -72,7 +73,7 @@ class Instansi extends CI_Controller {
             }
 
         $this->db->where('id_identitas',1);
-		$this->db->update('identitas',['logo'=>$new_image]);
+		$this->db->update('identitas');
 		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Disimpan!', 'success');</script>");
         	redirect('sisfo/Instansi');
 	}
@@ -94,6 +95,7 @@ class Instansi extends CI_Controller {
                         unlink(FCPATH . 'assets/img/instansi/'.$old_image);
                     }
                     $new_image = $this->upload->data('file_name');
+                    $this->db->set('header', $new_image);
                    
                     
                 } else {
@@ -102,7 +104,7 @@ class Instansi extends CI_Controller {
             }
 
         $this->db->where('id_identitas',1);
-		$this->db->update('identitas',['header'=>$new_image]);
+		$this->db->update('identitas');
 		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Disimpan!', 'success');</script>");
         	redirect('sisfo/Instansi');
 	}
@@ -124,6 +126,7 @@ class Instansi extends CI_Controller {
                         unlink(FCPATH . 'assets/img/instansi/'.$old_image);
                     }
                     $new_image = $this->upload->data('file_name');
+                    $this->db->set('ttd', $new_image);
                    
                     
                 } else {
@@ -131,10 +134,7 @@ class Instansi extends CI_Controller {
                 }
             }
 
-        $this->db->where('id_identitas',1);
-		$this->db->update('identitas',['ttd'=>$new_image]);
-		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Disimpan!', 'success');</script>");
-        	redirect('sisfo/Instansi');
+       
 	}
 
 	

@@ -4,24 +4,32 @@
       <div class="row g-2 align-items-center">
         <div class="col">
           <h2 class="page-title">
-            <?= $title; ?>
+            <?= $title; ?> 
           </h2>
+
+
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
+            </ol>
+          </nav>
+
         </div>
 
         <!-- Page title actions -->
         <div class="col-12 col-md-auto ms-auto d-print-none">
-            <div class="btn-list">
-
-             
-                <a href="<?= base_url('sisfo/Siswa/tambah'); ?>" class="btn btn-success d-none d-sm-inline-block"><i class="fas fa-user-plus"></i>
+          
+         <div class="btn-list m-3">             
+                <a href="<?= base_url('sisfo/Siswa/tambah'); ?>" class="btn btn-success"><i class="fas fa-user-plus"></i>
                     Tambah
                 </a>
-                 <a href="#" data-bs-toggle="modal" data-bs-target="#import" class="btn btn-info d-none d-sm-inline-block"><i class="fas fa-download"></i>
+                 <a href="#" data-bs-toggle="modal" data-bs-target="#import" class="btn btn-info"><i class="fas fa-download"></i>
                     Import
                 </a>
-                              
+          </div>
 
-            </div>
+            
           </div>
       </div>
     </div>
@@ -31,6 +39,7 @@
     <div class="container-xl">
 
         <div class="card">
+
             <div class="card-body">
               <div  class="table-responsive read">
 
@@ -43,7 +52,6 @@
                         <th>Tempat Lahir</th>
                         <th>Tgl Lahir</th>
                         <th>Asal Sekolah</th>
-                        <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -56,16 +64,8 @@
                           <td><?= $row->tempat_lahir; ?></td>
                           <td><?= date('d-m-Y',strtotime($row->tanggal_lahir)); ?></td>
                           <td><?= $row->asal_sekolah; ?></td>
+                          
                           <td>
-                            <?php if ($row->status  == "Y"): ?>
-                              <div class="fas fa-check-circle text-success"></div>
-                              
-                            <?php else : ?>
-                              <div class="fas fa-window-close text-danger"></div>
-                            <?php endif ?>  
-                          </td>
-                          <td>
-                            <a href="" class="fas fa-search text-secondary"></a>
                             <a href="<?= base_url('sisfo/Siswa/edit/'.encrypt_url($row->id_siswa)); ?>" class="fas fa-edit text-info"></a>
                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-del<?= $row->id_siswa;?>" class="fas fa-trash text-danger"></a>
                           </td>
@@ -88,7 +88,7 @@
       <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
-              <h3>Download Format Import Siswa: <a href="<?= base_url('assets/import/sample-siswa.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
+              <h3>Download Format Import Siswa: <a href="<?= base_url('assets/import/Data Siswa.xlsx') ?>" class="btn btn-link text-info">Klik disini</a></h3>
               <form action="<?= base_url('sisfo/Siswa/import'); ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                   <label>File Import siswa</label>

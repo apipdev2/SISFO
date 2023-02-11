@@ -15,10 +15,7 @@
                 <a href="#" data-bs-toggle="modal" data-bs-target="#modal-add" class="btn btn-success d-none d-sm-inline-block"><i class="fas fa-user-plus"></i>
                     Tambah
                 </a>
-                 <a href="#" class="btn btn-info d-none d-sm-inline-block"><i class="fas fa-download"></i>
-                    Import
-                </a>
-                <a href="#" class="btn btn-secondary d-none d-sm-inline-block"><i class="fas fa-print"></i>
+                <a href="<?= base_url('sisfo/Walas/cetak'); ?>" class="btn btn-secondary d-none d-sm-inline-block" target="_blank"><i class="fas fa-print"></i>
                     Cetak
                 </a>
 

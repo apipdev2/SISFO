@@ -70,8 +70,11 @@
                     <a class="dropdown-item" href="<?= base_url('sisfo/Rombel'); ?>">
                       Rombel
                     </a>
+                     <a class="dropdown-item" href="<?= base_url('sisfo/Peserta_didik/cari'); ?>">
+                      Cari Peserta Didik
+                    </a>
                     <a class="dropdown-item" href="<?= base_url('sisfo/Peserta_didik'); ?>">
-                      Peserta Didik
+                      Data Peserta Didik
                     </a>
                     <a class="dropdown-item" href="<?= base_url('sisfo/Walas'); ?>">
                       Wali Kelas
@@ -102,6 +105,9 @@
                     </a>
                     <a class="dropdown-item" href="<?= base_url('sisfo/Kenaikan/tinggal_kelas'); ?>">
                       Tinggal Kelas
+                    </a>
+                     <a class="dropdown-item" href="<?= base_url('sisfo/Kenaikan/tinggal_kelas'); ?>">
+                      Kelulusan
                     </a>
                      <a class="dropdown-item" href="<?= base_url('sisfo/Mutasi'); ?>">
                       Mutasi Siswa

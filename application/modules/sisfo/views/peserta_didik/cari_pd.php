@@ -41,34 +41,21 @@
                       <td>Tahun Ajaran</td><td>:</td><td><b><?= $tahunajaran->tahun_ajaran;?></b></td>
                     </tr>
                     <tr>
-                      <td>Tingkat</td>
+                      <td>Cari PD</td>
                       <td>:</td>
                       <td>
-                        <select name="tingkat" id="tingkat" style="width: 200px;" >
-                          <option value="" selected disabled>::Pilih Tingkat::</option>
-                          <?php foreach ($tingkat as $tingkat): ?>
-                            <option value="<?= $tingkat->tingkat; ?>"><?= $tingkat->tingkat; ?></option>
-                          <?php endforeach ?>
-                        </select>
+                        <input type="text" name="nama_peserta" id="nama_peserta" ><button class="btn btn-secondary btn-sm m-2" id="cari">cari</button>
                       </td>
                     </tr>
-                    <tr>
-                      <td>Kelas</td>
-                      <td>:</td>
-                      <td>
-                        <select name="kelas" id="kelas" style="width: 200px;">
-                          <option value="" selected disabled>::Pilih Kelas::</option>
-                        </select>
-                      </td>
-                    </tr>
+                    
                   </table>
 
                 </div>
 
                 <div class="col-md-6">
                   <div class="btn-group float-end">                    
-                    <button class="btn btn-success" type="button" id="cetak"><i class="fas fa-upload"></i> Export</button>
-                    <button class="btn btn-secondary" type="button" onclick="cetak()"><i class="fas fa-print"></i> Cetak</button>
+                    <button class="btn btn-success" type="button" id="export_all" onclick="export_all()"><i class="fas fa-upload"></i>&nbsp; Export All</button>
+                    <button class="btn btn-secondary" type="button" onclick="cetak()"><i class="fas fa-print"></i>&nbsp; Cetak All</button>
                   </div>
                 </div>
 
@@ -127,41 +114,20 @@
 
   <script>
     
-    
-
-      //tingkat
-      $('#tingkat').change(function(){
-        var id = $('#tingkat').val();
-        $.ajax({
-
-          Type : "post",
-          url :"<?= base_url('sisfo/Peserta_didik/ajax_getKelas/');?>"+id,
-          dataType : "JSON",
-          success:function(res){
-            var html ='';
-            html+='<option value="" selected disabled>::Pilih Kelas::</option>';
-
-            for (var i = 0; i < res.length; i++) {
-              html+='<option value="'+res[i].id_kelas+'">'+res[i].kelas+'</option>';
-                   
-            }
-
-            $('#kelas').html(html);
-            //$('#pd').DataTable();
-          }
-         });
-      });
+    tampil();
 
       //kelas
-      $('#kelas').change(function(){
+      $('#cari').on('click',function(){
 
-         var id_kelas = $('#kelas').val();
+         var nama_peserta = $('#nama_peserta').val();
          $.ajax({
 
-          Type : "POST",
-          url :"<?= base_url('sisfo/Peserta_didik/ajax_getSiswaByKelas/');?>"+id_kelas,
+          url :"<?= base_url('sisfo/Peserta_didik/ajax_getSiswaByNama');?>",
+          method : "POST",
           dataType : "JSON",
-          success:function(data){            
+          data : {nama_peserta: nama_peserta},
+          success:function(data){    
+          console.log(data);        
             var no=0;
             var html ='';
             for (var i = 0; i < data.length; i++) {
@@ -188,6 +154,39 @@
 
       });
 
+      function tampil(){
+         $.ajax({
+
+          url :"<?= base_url('sisfo/Peserta_didik/ajax_getSiswa');?>",
+          Type : "get",
+          dataType : "JSON",
+          success:function(data){    
+          console.log(data);        
+            var no=0;
+            var html ='';
+            for (var i = 0; i < data.length; i++) {
+              no++;
+              var status = '';
+              var date = new Date(data[i].tanggal_lahir);
+              var tanggal_lahir = date.toLocaleDateString('id');
+             
+              html+='<tr>'
+                   +'<td>'+no+'</td>'
+                   +'<td>'+data[i].nis+'</td>'
+                   +'<td>'+data[i].nama_peserta+'</td>'
+                   +'<td>'+data[i].jenis_kelamin+'</td>'
+                   +'<td>'+data[i].tempat_lahir+'</td>'
+                   +'<td>'+tanggal_lahir+'</td>'
+                   +'<td>'+data[i].kelas+'</td>'
+                   +'<td><a href="#" onClick="view('+data[i].nis+')" class="fas fa-search text-info"></a> | <a href="#" onClick="print('+data[i].nis+')" class="fas fa-print text-secondary"></a></td>'
+                   +'</tr>';
+            }
+            $('.table-tbody').html(html);
+            $('#pd').DataTable();
+          }
+         });
+      }
+
 
       //view detail
       function view(nis){
@@ -202,17 +201,21 @@
 
       //cetak perkelas
       function cetak(){
-        var id_kelas = $('#kelas').val();
-        if (id_kelas == null) {
-          alert('Silahkan pilih kelas');
-        } else {
-          window.open ("<?= base_url('sisfo/Peserta_didik/cetak_perkelas/');?>"+id_kelas, "_blank");
-        }
+        
+          window.open ("<?= base_url('sisfo/Peserta_didik/cetak_pd_all/');?>"+"_blank");
+        
       }
 
        function print(nis){
 
           window.open ("<?= base_url('sisfo/Peserta_didik/cetak_pd/');?>"+nis, "_blank");
+        
+      }
+
+      //cetak perkelas
+      function export_all(){
+        
+          window.open ("<?= base_url('sisfo/Peserta_didik/export_pd_all/');?>"+"_blank");
         
       }
 

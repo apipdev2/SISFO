@@ -128,7 +128,7 @@
                    <div class="card-header">
                      Statistik Siswa Berdasarkan Jenis Kelamin
                    </div>
-                   <div class="card-body bg-dark">
+                   <div class="card-body">
                      <canvas id="myChart" ></canvas>
                    </div>
                  </div>

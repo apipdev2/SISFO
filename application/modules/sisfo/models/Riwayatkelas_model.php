@@ -9,6 +9,7 @@ class Riwayatkelas_model extends CI_Model {
 						->from('riwayatkelas rk')
 						->join('siswa s','s.nis = rk.nis')
 						->join('tbl_kelas k','k.id_kelas = rk.id_kelas')
+						->where('rk.status_siswa','Y')
 						->where('rk.id_tahun',$this->session->userdata('id_tahun'))
 						->get();
 	}
@@ -24,6 +25,21 @@ class Riwayatkelas_model extends CI_Model {
 						->get();
 	}
 
+	public function getSiswaByNama($nama_peserta)
+	{
+		
+
+		return $this->db->select('*')
+						->from('riwayatkelas rk')
+						->join('siswa s','s.nis = rk.nis')
+						->join('tbl_kelas k','k.id_kelas = rk.id_kelas')
+						->like('s.nama_peserta',$nama_peserta)
+						->where('rk.status_siswa','Y')
+						->where('rk.id_tahun',$this->session->userdata('id_tahun'))
+						->get()->result();
+		
+	}
+
 	public function getSiswaByIdKelas($id_kelas)
 	{
 		return $this->db->select('*')
@@ -31,6 +47,7 @@ class Riwayatkelas_model extends CI_Model {
 						->join('siswa s','s.nis = rk.nis')
 						->join('tbl_kelas k','k.id_kelas = rk.id_kelas')
 						->where('rk.id_kelas',$id_kelas)
+						->where('rk.status_siswa','Y')
 						->where('rk.id_tahun',$this->session->userdata('id_tahun'))
 						->get();
 	}

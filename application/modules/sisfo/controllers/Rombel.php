@@ -60,9 +60,18 @@ class Rombel extends CI_Controller {
 				'status_siswa' => 'Y',
 			];
 
-			$query = $this->riwayatkelas->insertSiswa($data[$i]);
-			//update flag siswa
-			$this->db->where('nis', $nis[$i])->update('siswa',['flag'=>'1']);
+            $cek = $this->db->get_where('riwayatkelas',[
+                'id_tahun' => $this->session->userdata('id_tahun'),
+                'nis' => $nis[$i],
+                'id_kelas' => $id_kelas,
+            ])->num_rows();
+
+            if ($cek < 1) {
+                $query = $this->riwayatkelas->insertSiswa($data[$i]);
+                //update flag siswa
+                $this->db->where('nis', $nis[$i])->update('siswa',['flag'=>'1']);
+            }
+			
 
 		}
 		
@@ -70,7 +79,7 @@ class Rombel extends CI_Controller {
 			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Tersimpan!', 'success');</script>");
         	redirect('sisfo/Rombel/view/'.encrypt_url($id_kelas));
 		}else{
-			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
+			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan data suda ada!', 'error');</script>");
         	redirect('sisfo/Rombel/view/'.encrypt_url($id_kelas));
 		}
 	}
@@ -116,88 +125,97 @@ class Rombel extends CI_Controller {
         $data = array();
 
         foreach ($sheetData as $row) {
-        	$datas['id_tahun'] = $this->session->userdata('id_tahun');
-        	$datas['nis'] = $row[1];
-        	$datas['nisn'] = $row[2];
-        	$datas['nik'] = $row[3];
-        	$datas['no_kk'] = $row[4];
-        	$datas['nama_peserta'] = $row[5];
-        	$datas['tempat_lahir'] = $row[6];
-        	$datas['tanggal_lahir'] = $row[7];
-        	$datas['jenis_kelamin'] = $row[8];
-        	$datas['asal_sekolah'] = $row[9];
-        	$datas['no_registrasi_akta_lahir'] = $row[10];
-        	$datas['agama'] = $row[11];
-        	$datas['berkebutuhan_khusus'] = $row[12];
-        	$datas['alamat'] = $row[13];
-        	$datas['rt'] = $row[14];
-        	$datas['rw'] = $row[15];
-        	$datas['desa'] = $row[16];
-        	$datas['kecamatan'] = $row[17];
-        	$datas['kabupaten'] = $row[18];
-        	$datas['prov'] = $row[19];
-        	$datas['tempat_tinggal'] = $row[20];
-        	$datas['moda_transportasi'] = $row[21];
-        	$datas['anak_ke'] = $row[22];
-        	$datas['jumlah_saudara_kandung'] = $row[23];
-        	$datas['nomor_hp'] = $row[24];
-        	$datas['email'] = $row[25];
-        	$datas['tinggi_badan'] = $row[26];
-        	$datas['berat_badan'] = $row[27];
-        	$datas['jarak'] = $row[28];
-        	$datas['size_jurusan'] = $row[29];
-        	$datas['size_olahraga'] = $row[30];
-        	$datas['nama_ayah'] = $row[31];
-        	$datas['nik_ayah'] = $row[32];
-        	$datas['tempat_lahir_ayah'] = $row[33];
-        	$datas['tanggal_lahir_ayah'] = $row[34];
-        	$datas['pendidikan_ayah'] = $row[35];
-        	$datas['pekerjaan_ayah'] = $row[36];
-        	$datas['penghasilan_bulanan_ayah'] = $row[37];
-        	$datas['berkebutuhan_khusus_ayah'] = $row[38];
-        	$datas['no_ayah'] = $row[39];
-        	$datas['nik_ibu'] = $row[40];
-        	$datas['nama_ibu'] = $row[41];
-        	$datas['tempat_lahir_ibu'] = $row[42];
-        	$datas['tanggal_lahir_ibu'] = $row[43];
-        	$datas['pendidikan_ibu'] = $row[44];
-        	$datas['pekerjaan_ibu'] = $row[45];
-        	$datas['penghasilan_bulanan_ibu'] = $row[46];
-        	$datas['berkebutuhan_khusus_ibu'] = $row[47];
-        	$datas['no_ibu'] = $row[48];
-        	$datas['nama_wali'] = $row[49];
-        	$datas['nik_wali'] = $row[50];
-        	$datas['tempat_lahir_wali'] = $row[51];
-        	$datas['tanggal_lahir_wali'] = $row[52];
-        	$datas['penghasilan_bulanan_wali'] = $row[53];
-        	$datas['no_wali'] = $row[54];
-        	$data[] = $datas;
+        	$data  = [
+                'id_tahun' => $this->session->userdata('id_tahun'),
+                'nis' => $row[1],
+                'nisn' => $row[2],
+                'nik' => $row[3],
+                'no_kk' => $row[4],
+                'nama_peserta' => $row[5],
+                'tempat_lahir' => $row[6],
+                'tanggal_lahir' => $row[7],
+                'jenis_kelamin' => $row[8],
+                'asal_sekolah' => $row[9],
+                'no_registrasi_akta_lahir' => $row[10],
+                'agama' => $row[11],
+                'berkebutuhan_khusus' => $row[12],
+                'alamat' => $row[13],
+                'rt' => $row[14],
+                'rw' => $row[15],
+                'desa' => $row[16],
+                'kecamatan' => $row[17],
+                'kabupaten' => $row[18],
+                'prov' => $row[19],
+                'tempat_tinggal' => $row[20],
+                'moda_transportasi' => $row[21],
+                'anak_ke' => $row[22],
+                'jumlah_saudara_kandung' => $row[23],
+                'nomor_hp' => $row[24],
+                'email' => $row[25],
+                'tinggi_badan' => $row[26],
+                'berat_badan' => $row[27],
+                'jarak' => $row[28],
+                'size_jurusan' => $row[29],
+                'size_olahraga' => $row[30],
+                'nama_ayah' => $row[31],
+                'nik_ayah' => $row[32],
+                'tempat_lahir_ayah' => $row[33],
+                'tanggal_lahir_ayah' => $row[34],
+                'pendidikan_ayah' => $row[35],
+                'pekerjaan_ayah' => $row[36],
+                'penghasilan_bulanan_ayah' => $row[37],
+                'berkebutuhan_khusus_ayah' => $row[38],
+                'no_ayah' => $row[39],
+                'nik_ibu' => $row[40],
+                'nama_ibu' => $row[41],
+                'tempat_lahir_ibu'=>$row[42],
+                'tanggal_lahir_ibu' => $row[43],
+                'pendidikan_ibu' => $row[44],
+                'pekerjaan_ibu' => $row[45],
+                'penghasilan_bulanan_ibu' => $row[46],
+                'berkebutuhan_khusus_ibu' => $row[47],
+                'no_ibu' => $row[48],
+                'nama_wali' => $row[49],
+                'nik_wali' => $row[50],
+                'tempat_lahir_wali' => $row[51],
+                'tanggal_lahir_wali' => $row[52],
+                'penghasilan_bulanan_wali' => $row[53],
+                'no_wali' => $row[54],
+            ];
+
+            $dt_kelas = [
+                'id_tahun' => $this->session->userdata('id_tahun'),
+                'nis' => $rows[1],
+                'id_kelas' => $this->input->post('id_kelas'),
+                'status_siswa' => "Y",
+                'flag' => 0,
+            ];
+
+            $cek_siswa =  $this->db->get_where('siswa',[
+                'nisn' => $row[2],
+                'nik' => $row[3],
+                'nama_peserta' => $row[5],
+            ])->num_rows();
+
+            if ($cek_siswa < 1) {
+                
+                $this->db->insert('siswa',$data);
+                $cek_rk = $this->db->get_where('riwayatkelas',[])->num_rows();
+                if ($cek_rk < 1) {
+                    $this->db->insert('riwayatkelas', $dt_kelas);
+                    //update flag siswa
+                    $this->db->where('nis', $nis[$i])->update('siswa',['flag'=>'1']);
+                }
+
+                $this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Import data!', 'success');</script>");
+            }else{
+
+                $this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Sudah ada!', 'error');</script>");
+            }
+
+            redirect('sisfo/Rombel');
         }
-
         
-
-        $kelas = array();
-        foreach ($sheetData as $rows) {        	
-        	$kls['id_tahun'] = $this->session->userdata('id_tahun');
-        	$kls['nis'] = $rows[1];
-        	$kls['id_kelas'] = $this->input->post('id_kelas');
-        	$kls['status_siswa'] = "Y";
-        	$kls['flag'] = 0;
-        	$kelas[] = $kls;
-        }
-
-
-        $import_siswa = $this->db->insert_batch('siswa',$data);
-        $query = $this->db->insert_batch('riwayatkelas',$kelas);
-        
-        
-        if ($query) {
-		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Import data!', 'success');</script>");
-    	redirect('sisfo/Rombel');
-		}else{
-			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Import data!', 'error');</script>");
-        	redirect('sisfo/Rombel');
-		}
 
       }
 

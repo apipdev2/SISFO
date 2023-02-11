@@ -19,7 +19,7 @@
 
 		.demo-table ,th ,td{
 			border:1px solid #95a5a6;
-			padding: 7px 17px;
+			padding: 5px 10px;
 		}
 		.demo-table tr:nth-child(even) {
 		    background-color: #f2f2f2;
@@ -30,17 +30,11 @@
 			width:100%;
 			margin: 0px;
 			text-align: center;
+			/*background: red;*/
 		}
 
-		.header img{
-			margin: 0px;
-			padding: 0px;
-		}
-		.logo{
-			width:100px;
-			display: inline-block;
-			/*background: yellow;*/
-		}
+			
+		
 		.sekolah{
 			width: 550px;
 			display: inline-block;	
@@ -65,8 +59,6 @@
 <body>
 
 	<div class="header" >
-
-			
 			<img src="<?= base_url('assets/img/instansi/'.$instansi->header); ?>" alt="logo" >
 
 	</div>
@@ -75,8 +67,6 @@
 
 	<table class="title" width="50%">
 		<tr><th>Tahun Ajaran</th><th>:</th><th><?= $tahunajaran->tahun_ajaran;?></th></tr>
-		<tr><th>Jurusan</th><th>:</th><th><?= $kelas->jurusan;?></th></tr>
-		<tr><th>Kelas</th><th>:</th><th><?= $kelas->kelas;?></th></tr>
 	</table>
 	<br>
 
@@ -84,7 +74,7 @@
 	  <thead style="background: #2d3436; color: #fff;">
 	    <tr>
 	      <th>No</th>
-	      <th>NIS</th>
+	      <th>NIP</th>
 	      <th>Nama</th>
 	      <th>JK</th>
 	      <th>Tempat Lahir</th>
@@ -93,11 +83,11 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	  	<?php $no=1; foreach ($peserta as $row): ?>
+	  	<?php $no=1; foreach ($walas as $row): ?>
 	  	<tr>
 	  	  <td><?= $no++;?></td>
-	  	  <td><?= $row->nis; ?></td>
-	      <td><?= $row->nama_peserta; ?></td>
+	  	  <td><?= $row->nip; ?></td>
+	      <td><?= $row->nama_lengkap; ?></td>
 	      <td><?= $row->jenis_kelamin; ?></td>
 	      <td><?= $row->tempat_lahir; ?></td>
 	      <td><?= date_indo($row->tanggal_lahir); ?></td>

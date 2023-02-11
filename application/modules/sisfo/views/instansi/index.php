@@ -113,7 +113,7 @@
                     <div class="form-group mb-3 row">
                       <label class="col-3 col-form-label">Logo</label>
                       <div class="col-7">
-                        <input type="file" name="logo" class="form-control" value="<?= $instansi->logo; ?>" >
+                        <input type="file" name="logo" class="form-control">
                       </div>
                       <div class="col-2">
                         <button type="submit" class="btn btn-success float-end" id="logo"><i class="fas fa-save"></i></button>
@@ -130,7 +130,7 @@
                     <div class="form-group mb-3 row">
                       <label class="col-md-3 col-form-label">Header</label>
                       <div class="col-md-7">
-                        <input type="file" name="header" class="form-control" value="<?= $instansi->header; ?>" >
+                        <input type="file" name="header" class="form-control" >
                       </div>
                       <div class="col-md-2">
                         <button type="submit" class="btn btn-success float-end" id="header"><i class="fas fa-save"></i></button>
@@ -147,7 +147,7 @@
                     <div class="form-group mb-3 row">
                       <label class="col-3 col-form-label">TTD</label>
                       <div class="col-7">
-                        <input type="file" name="ttd" class="form-control" value="<?= $instansi->ttd; ?>" >
+                        <input type="file" name="ttd" class="form-control"  >
                       </div>
                       <div class="col-2">
                         <button type="submit" class="btn btn-success float-end" id="ttd"><i class="fas fa-save"></i></button>

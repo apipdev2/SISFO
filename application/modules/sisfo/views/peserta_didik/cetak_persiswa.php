@@ -76,10 +76,11 @@
 </head>
 <body>
 
+
 	<div class="header" >
 
 			
-			<img src="<?= base_url('assets/img/instansi/header.PNG'); ?>" alt="logo" >
+			<img src="<?= base_url('assets/img/instansi/'.$instansi->header); ?>" alt="logo" >
 
 	</div>
 	
@@ -150,7 +151,7 @@
 				<td width="5"></td>
 				<td width="5">9.</td>
 				<td>Alamat</td>
-				<td><?= $peserta->alamat; ?></td>
+				<td><?= $peserta->alamat.' Rt.'.$peserta->rt.'/'.$peserta->rw.' Desa.'.$peserta->desa.' Kec.'.$peserta->kecamatan.' Kab/Kota.'.$peserta->kabupaten.' Prov.'.$peserta->provinsi.'-'.$peserta->kode_pos; ?></td>
 			</tr>
 
 			<tr>
@@ -161,42 +162,83 @@
 			<tr>
 				<td width="5"></td>
 				<td width="5">1.</td>
-				<td>NIS</td>
-				<td>423423</td>
+				<td>NIK</td>
+				<td><?= $peserta->nik_ayah; ?></td>
 			</tr>
 
 			<tr>
 				<td width="5"></td>
 				<td width="5">2.</td>
-				<td>Nama</td>
-				<td>asdfasdfasdfs</td>
+				<td>Ayah</td>
+				<td><?= $peserta->nama_ayah; ?></td>
 			</tr>
 			<tr>
 				<td width="5"></td>
-				<td width="5">1.</td>
-				<td>NIS</td>
-				<td>423423</td>
+				<td width="5">3.</td>
+				<td>Tempat Tanggal, Lahir</td>
+				<td><?= $peserta->tempat_lahir_ayah; ?>, <?= date_indo($peserta->tanggal_lahir_ayah); ?></td>
 			</tr>
 
 			<tr>
 				<td width="5"></td>
-				<td width="5">2.</td>
-				<td>Nama</td>
-				<td>asdfasdfasdfs</td>
+				<td width="5">4.</td>
+				<td>Pendidikan</td>
+				<td><?= $peserta->pendidikan_ayah; ?></td>
 			</tr>
 			<tr>
 				<td width="5"></td>
-				<td width="5">1.</td>
-				<td>NIS</td>
-				<td>423423</td>
+				<td width="5">5.</td>
+				<td>Pekerjaan</td>
+				<td><?= $peserta->pekerjaan_ayah; ?></td>
 			</tr>
 
 			<tr>
 				<td width="5"></td>
-				<td width="5">2.</td>
-				<td>Nama</td>
-				<td>asdfasdfasdfs</td>
+				<td width="5">6.</td>
+				<td>Penghasilan</td>
+				<td><?= $peserta->penghasilan_bulanan_ayah; ?></td>
 			</tr>
+
+			<tr>
+				<td width="5"></td>
+				<td width="5">7.</td>
+				<td>NIK</td>
+				<td><?= $peserta->nik_ibu; ?></td>
+			</tr>
+
+			<tr>
+				<td width="5"></td>
+				<td width="5">8.</td>
+				<td>Ibu</td>
+				<td><?= $peserta->nama_ibu; ?></td>
+			</tr>
+			<tr>
+				<td width="5"></td>
+				<td width="5">9.</td>
+				<td>Tempat Tanggal, Lahir</td>
+				<td><?= $peserta->tempat_lahir_ibu; ?>, <?= date_indo($peserta->tanggal_lahir_ibu); ?></td>
+			</tr>
+
+			<tr>
+				<td width="5"></td>
+				<td width="5">10.</td>
+				<td>Pendidikan</td>
+				<td><?= $peserta->pendidikan_ibu; ?></td>
+			</tr>
+			<tr>
+				<td width="5"></td>
+				<td width="5">11.</td>
+				<td>Pekerjaan</td>
+				<td><?= $peserta->pekerjaan_ibu; ?></td>
+			</tr>
+
+			<tr>
+				<td width="5"></td>
+				<td width="5">12.</td>
+				<td>Penghasilan</td>
+				<td><?= $peserta->penghasilan_bulanan_ayah; ?></td>
+			</tr>
+
 			<tr>
 				<td width="10">B.</td>
 				<td colspan="3">Data Wali</td>
@@ -205,41 +247,41 @@
 			<tr>
 				<td width="5"></td>
 				<td width="5">1.</td>
-				<td>NIS</td>
-				<td>423423</td>
+				<td>NIK</td>
+				<td><?= $peserta->nik_wali; ?></td>
 			</tr>
 
 			<tr>
 				<td width="5"></td>
 				<td width="5">2.</td>
-				<td>Nama</td>
-				<td>asdfasdfasdfs</td>
+				<td>Wali</td>
+				<td><?= $peserta->nama_wali; ?></td>
 			</tr>
 			<tr>
 				<td width="5"></td>
-				<td width="5">1.</td>
-				<td>NIS</td>
-				<td>423423</td>
-			</tr>
-
-			<tr>
-				<td width="5"></td>
-				<td width="5">2.</td>
-				<td>Nama</td>
-				<td>asdfasdfasdfs</td>
-			</tr>
-			<tr>
-				<td width="5"></td>
-				<td width="5">1.</td>
-				<td>NIS</td>
-				<td>423423</td>
+				<td width="5">3.</td>
+				<td>Tempat Tanggal, Lahir</td>
+				<td><?= $peserta->tempat_lahir_wali; ?>, <?= date_indo($peserta->tanggal_lahir_wali); ?></td>
 			</tr>
 
 			<tr>
 				<td width="5"></td>
-				<td width="5">2.</td>
-				<td>Nama</td>
-				<td>asdfasdfasdfs</td>
+				<td width="5">4.</td>
+				<td>Pendidikan</td>
+				<td><?= $peserta->pendidikan_wali; ?></td>
+			</tr>
+			<tr>
+				<td width="5"></td>
+				<td width="5">5.</td>
+				<td>Pekerjaan</td>
+				<td><?= $peserta->pekerjaan_wali; ?></td>
+			</tr>
+
+			<tr>
+				<td width="5"></td>
+				<td width="5">6.</td>
+				<td>Penghasilan</td>
+				<td><?= $peserta->penghasilan_bulanan_wali; ?></td>
 			</tr>
 		</table>
 	</div>

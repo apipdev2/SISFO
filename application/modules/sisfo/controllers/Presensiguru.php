@@ -47,10 +47,12 @@ class Presensiguru extends CI_Controller {
 	{
 		$nip = $this->input->post('nip');
 		$ket = $this->input->post('ket');
+
 		
-		for ($i=0; $i < count($nip) ; $i++) { 
+		
+		for ($i=0; $i < count($ket) ; $i++) { 
 			
-			$data[$i] = [
+			$data = [
 				'id_tahun' => $this->session->userdata('id_tahun'),
 				'tanggal' => $this->input->post('tanggal'),
 				'nip' => $nip[$i],
@@ -58,12 +60,14 @@ class Presensiguru extends CI_Controller {
 				'type' => 'M',
 			];
 
+
+
 		$cek = $this->db->get_where('phguru',[
 				'tanggal' => $this->input->post('tanggal'),
 				'nip' => $nip[$i],])->num_rows();
 
 			if ($cek < 1) {
-				$query = $this->db->insert('phguru',$data[$i]);
+				$query = $this->db->insert('phguru',$data);
 			}
 		}
 		
