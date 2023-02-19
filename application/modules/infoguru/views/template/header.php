@@ -5,17 +5,17 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Dashboard | SISFO</title>
+    <title><?= $title; ?> | INFO GURU</title>
 
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/instansi/'.$instansi->logo); ?>">
     <!-- CSS files -->
     <link href="<?= base_url('assets/dist/css/tabler.min.css?166828786');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/tabler-flags.min.css?166828786');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/tabler-payments.min.css?166828786');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/tabler-vendors.min.css?166828786');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/demo.min.css?166828786');?>" rel="stylesheet"/>
-    <!-- calendar -->
-    <link href="<?= base_url('assets/dist/libs/calendar/jquery.zabuto_calendar.css');?>" rel="stylesheet"/>
-
+    
     <!-- data table -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css"/>
     <!-- font awesome -->
@@ -24,8 +24,7 @@
     <!-- jquery -->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-     <!-- calendarjs -->
-    <script src="<?= base_url('assets/dist/libs/calendar/jquery.zabuto_calendar.js');?>"></script>
+    
     
     <style>
       @import url('https://rsms.me/inter/inter.css');

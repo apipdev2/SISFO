@@ -28,6 +28,12 @@ class User_model extends CI_Model {
 		return $this->db->where('id_user',$id)->update('tbl_user',$data);
 	}
 
+	public function changePassword($id, $data)
+	{
+		$this->db->where('id_user',$id);
+		return $this->db->update('tbl_user',$data);
+	}
+
 	public function hapusUser($id)
 	{
 		$user = $this->db->get_where('tbl_user',['id_user'=>$id])->row();

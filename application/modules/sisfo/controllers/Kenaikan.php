@@ -66,6 +66,33 @@ class Kenaikan extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+	public function kelulusan()
+	{	
+		if ($this->input->post('id_kelas')) {
+
+			$siswa = $this->kenaikan->getSiswaByIdKelas($this->input->post('id_kelas'))->result();
+
+		}else{
+			$siswa = [];
+		}
+
+		$data = [
+			'title' => 'Kelulusan',
+			'tahunajaran' => $this->db->get_where('tahunajaran',['id_tahun'=> $this->session->userdata('id_tahun')])->row(),
+			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
+			'ta' => $this->db->get('tahunajaran')->result(),
+			'kelas' => $this->kelas->getKelas()->result(),
+			'kelas_baru' => $this->kelas->getKelas()->result(),
+			'siswa' => $siswa,
+			'ses_kelas'=> $this->input->post('id_kelas'),
+		];
+
+		$this->load->view('template/header',$data);
+		$this->load->view('template/navbar');
+		$this->load->view('sisfo/kenaikan/kelulusan',$data);
+		$this->load->view('template/footer');
+	}
+
 	public function ajax_getKelas($id_tahun)
 	{
 		$kelas = $this->kelas->getKelasByTahun($id_tahun)->result();
@@ -157,6 +184,50 @@ class Kenaikan extends CI_Controller {
 		}else{
 			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
         	redirect('sisfo/Kenaikan');
+		}
+	}
+
+	public function luluskan()
+	{	
+		$nis = $this->input->post('nis');
+		$id_tahun = $this->session->userdata('id_tahun');
+		$id_kelas = $this->input->post('id_kelas');
+
+		for ($i=0; $i < count($nis) ; $i++) { 
+			
+			$data = [
+				'id_tahun' => $id_tahun,
+				'nis' => $nis[$i],
+				'id_kelas' => $id_kelas,
+				'tanggal_lulus' => date('Y-m-d'),
+			];
+
+			$cek = $this->db->get_where('alumni',['id_tahun' => $id_tahun,'nis' => $nis[$i]])->num_rows();
+
+			if ($cek > 0) {
+
+				$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Siswa Sudah ada!', 'info');</script>");
+
+			}else{
+
+				$query = $this->db->insert('alumni',$data);
+				
+				//update flag
+				$this->db->where([
+					'id_tahun' => $this->session->userdata('id_tahun'),
+					'nis' => $nis[$i],
+					'id_kelas' => $id_kelas,
+				])->update('riwayatkelas',['flag' => '3']);
+			}
+
+		}
+
+		if ($query) {
+			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Tersimpan!', 'success');</script>");
+        	redirect('sisfo/Kenaikan/kelulusan');
+		}else{
+			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
+        	redirect('sisfo/Kenaikan/kelulusan');
 		}
 	}
 

@@ -81,9 +81,7 @@
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="#" class="dropdown-item">Status</a>
-                <a href="#" class="dropdown-item">Profile</a>
-                <a href="<?= base_url('sisfo/Auth/logout'); ?>" class="dropdown-item">Logout</a>
+                <a href="<?= base_url('infoguru/Auth/logout'); ?>" class="dropdown-item">Logout</a>
               </div>
             </div>
           </div>

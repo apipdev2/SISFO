@@ -1,8 +1,5 @@
  <!-- Libs JS -->
-    <script src="<?= base_url('assets/dist/libs/apexcharts/dist/apexcharts.min.js?166828786');?>" defer></script>
-    <script src="<?= base_url('assets/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?166828786');?>" defer></script>
-    <script src="<?= base_url('assets/dist/libs/jsvectormap/dist/maps/world.js?166828786');?>" defer></script>
-    <script src="<?= base_url('assets/dist/libs/jsvectormap/dist/maps/world-merc.js?166828786');?>" defer></script>
+
     <!-- Tabler Core -->
     <script src="<?= base_url('assets/dist/js/tabler.min.js?166828786');?>" defer></script>
     <script src="<?= base_url('assets/dist/js/demo.min.js?166828786');?>" defer></script>

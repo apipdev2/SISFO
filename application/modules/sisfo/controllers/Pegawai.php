@@ -136,8 +136,9 @@ class Pegawai extends CI_Controller {
                 	echo "<script>swal('Galat!', 'File Max 2MB, Format File harus jpg|png');</script>";
                     // echo $this->upload->dispay_errors();
                 }
-            }
-				$data = [
+            }else{
+
+            	$data = [
 						'nip'				=> $this->input->post('nip'),
 						'nik'				=> $this->input->post('nik'),
 						'no_kk'				=> $this->input->post('no_kk'),
@@ -153,6 +154,8 @@ class Pegawai extends CI_Controller {
 						'email'				=> $this->input->post('email'),
 						'status_pegawai'	=> $this->input->post('status_pegawai'),
 				];
+            }
+				
 
 			$query = $this->pegawai->editPegawai($data,$id);
 			if ($query) {

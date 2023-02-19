@@ -36,6 +36,7 @@
                       <tr>
                         <th>No</th>
                         <th>Image</th>
+                        <th>NIP</th>
                         <th>Nama Lengkap</th>
                         <th>Email</th>
                         <th>Level</th>
@@ -47,10 +48,12 @@
                         <tr>
                           <td><?= $no++;?></td>
                           <td><img src="<?= base_url('assets/img/user/'.$row->image); ?>" alt="img" width="60"></td>
+                          <td><?= $row->nip;?></td>
                           <td><?= $row->full_name;?></td>
                           <td><?= $row->email;?></td>
                           <td><?= $row->nama_level;?></td>                        
                           <td>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#modal-key<?= $row->id_user;?>" class="fas fa-key text-secondary"></a>
                             <a href="" data-bs-toggle="modal" data-bs-target="#modal-edit<?= $row->id_user;?>" class="fas fa-edit text-info"></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#modal-del<?= $row->id_user;?>" class="fas fa-trash text-danger"></a>
                           </td>
@@ -80,6 +83,10 @@
           <form action="<?= base_url('sisfo/User/tambah'); ?>" method="post">
           <div class="modal-body">
 
+               <div class="form-group">
+                <label>NIP</label>
+                <input type="text" name="nip" class="form-control">
+              </div>
               
               <div class="form-group">
                 <label>Nama Lengkap</label>
@@ -131,7 +138,12 @@
           <form action="<?= base_url('sisfo/User/edit/'.encrypt_url($row->id_user)); ?>" method="post" enctype="multipart/form-data">
           <div class="modal-body">
 
-            <div class="form-group">
+              <div class="form-group">
+                <label>NIP</label>
+                <input type="text" name="nip" class="form-control" value="<?= $row->nip; ?>">
+              </div>
+
+              <div class="form-group">
                 <label>Nama Lengkap</label>
                 <input type="text" name="full_name" class="form-control" value="<?= $row->full_name; ?>">
               </div>
@@ -143,7 +155,7 @@
 
               <div class="form-group">
                 <label>Image</label>
-                <input type="file" name="image" class="form-control" value="<?= $row->image; ?>">
+                <input type="file" name="image" class="form-control">
               </div>
 
               <div class="form-group">
@@ -170,7 +182,30 @@
       </div>
     </div>
 
-  <!-- modal del -->
+  <!-- modal key-->
+  <div class="modal modal-blur fade" id="modal-key<?= $row->id_user;?>" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form action="<?= base_url('sisfo/User/change_password/'.encrypt_url($row->id_user)); ?>" method="post">
+          <div class="modal-header bg-secondary text-white">
+            <h2>Reset Password</h2>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="">Password New</label>
+              <input type="text" name="password" class="form-control">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-info float-end">Save</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal del -->
   <div class="modal modal-blur fade" id="modal-del<?= $row->id_user;?>" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">

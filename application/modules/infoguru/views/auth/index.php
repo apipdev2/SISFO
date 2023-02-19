@@ -13,9 +13,9 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>SISFO | <?= $title;?></title>
+    <title>SISFO | Infoguru</title>
      <!-- favicon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/menu/logo-sisfo.png'); ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/menu/instansi/'.$instansi->logo); ?>">
     <!-- CSS files -->
     <link href="<?= base_url('assets/dist/css/tabler.min.css');?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/dist/css/tabler-flags.min.css');?>" rel="stylesheet"/>
@@ -25,7 +25,7 @@
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
-      	--tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+        --tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
       }
     </style>
   </head>
@@ -35,50 +35,57 @@
       <div class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
         <div class="container container-tight my-5 px-lg-5">
           <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="<?= base_url('assets/img/logo.png');?>" height="80" alt=""></a>
-            <h2>SMK PGRI 1 Balaraja</h2>
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="<?= base_url('assets/img/instansi/'.$instansi->logo);?>" height="80" alt=""></a>
+            <h2><?= $instansi->nama_sekolah; ?></h2>
           </div>
           <?= $this->session->flashdata('message'); ?>
-         
-          <form action="<?= base_url('infoguru/Auth'); ?>" method="post">
+          <h2 class="h3 text-center mb-3">
+            Silahkan Login
+          </h2>
+          <form action="<?= base_url('Infoguru/Auth'); ?>" method="post">
             <div class="mb-3">
               <label class="form-label">Email</label>
-              <input type="email" name="email" class="form-control" placeholder="your@email.com"  value="<?= set_value('email'); ?>">
+              <input type="email" name="email" class="form-control" value="<?= set_value('email'); ?>">
               <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
             <div class="mb-2">
               <label class="form-label">Password </label>
-              <div class="input-group input-group-flat">
-                <input type="password" name="password" class="form-control" id="password"  placeholder="Your password"  value="<?= set_value('email'); ?>">
-                <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
-                <span class="input-group-text">
-                  <a href="#" onclick="show()" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
-                  </a>
-                </span>
-              </div>
+                <input type="password" name="password" class="form-control <?php if (form_error('password')): ?>
+                  is-invalid
+                <?php endif ?>" id="password">
+                <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>               
+              
             </div>
              <div class="mb-2">
               <label class="form-label">Tahun Ajaran</label>
-              <div class="input-group input-group-flat">
-                <select name="id_tahun" class="form-control">
+              <div class="input-group input-group-flat row">
+                <select name="id_tahun" class="form-select col-6">
                   <option value="" selected disabled>::Tahun Ajaran::</option>
                 <?php foreach ($tahun_ajaran as $ta): ?>
                   <option value="<?= $ta->id_tahun; ?>"><?= $ta->tahun_ajaran; ?></option>
                 <?php endforeach ?>
                 </select>
+
+                <select name="semester" class="form-select col-6">
+                  <option value="" selected disabled>::Semester::</option>
+                <?php foreach ($semester as $semester): ?>
+                  <option value="<?= $semester; ?>"><?= $semester; ?></option>
+                <?php endforeach ?>
+                </select>
+
               </div>
             </div>
            
             <div class="form-footer">
               <button type="submit" class="btn btn-primary w-100">Login</button>
+              <a href="<?= base_url('Home'); ?>" class="btn btn-info w-100 mt-2">Home</a>
             </div>
           </form>
           
         </div>
       </div>
       <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
-        <div class="bg-cover h-100 min-vh-100" style="background-image: url(<?= base_url('assets/img/menu/SIFOS.png');?>);"></div>
+        <div class="bg-cover h-100 min-vh-100" style="background-image: url(<?= base_url('assets/img/login2.jpg');?>);"></div>
       </div>
     </div>
     <!-- Libs JS -->
@@ -86,10 +93,10 @@
     <script src="<?= base_url('assets/dist/js/tabler.min.js'); ?>" defer></script>
     <script src="<?= base_url('assets/dist/js/demo.min.js'); ?>" defer></script>
     <script>
-    	function show()
-    	{	
-    		document.getElementById('password').type = 'text';
-    	}
+      function show()
+      { 
+        document.getElementById('password').type = 'text';
+      }
     </script>
   </body>
 </html>

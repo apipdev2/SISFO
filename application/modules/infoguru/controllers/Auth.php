@@ -18,8 +18,10 @@ class Auth extends CI_Controller {
             
 
             	$data = [
-                    'title'     => 'Info Guru',
+                    'title'     => 'Login Page',
                     'tahun_ajaran'=> $this->db->get('tahunajaran')->result(),
+                    'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
+                    'semester' => ['Ganjil','Genap'],
                 ];
 
 			$this->load->view('infoguru/auth/index', $data);
@@ -48,13 +50,14 @@ class Auth extends CI_Controller {
                     if (password_verify($password, $user->password)) {
 
                              $data = [    
-                            'id_user'     => $user->id_user,                        
-                            'email'       => $user->email,
-                            'username'    => ucfirst($user->username),
-                            'id_level'    => $user->id_level,
-                            'image'       => $user->image,
-                            'id_tahun'    => $tahunajaran,
-                            'infoguru'   => TRUE
+                                'id_user'     => $user->id_user,
+                                'nip'     => $user->nip,                        
+                                'email'       => $user->email,
+                                'username'    => ucfirst($user->username),
+                                'id_level'    => $user->id_level,
+                                'image'       => $user->image,
+                                'id_tahun'    => $tahunajaran,
+                                'infoguru'   => TRUE
                             ];
 
                             $this->session->set_userdata($data);
@@ -83,7 +86,7 @@ class Auth extends CI_Controller {
 
     public function logout()
     {   
-        $data = ['id_user','email','username','id_level','image','logged_in','id_tahun'];
+        $data = ['id_user','nip','email','username','id_level','image','infoguru','id_tahun'];
 
         $this->session->unset_userdata($data);
 

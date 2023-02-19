@@ -60,10 +60,10 @@
         		</form>
         	</div>
 
-        	<form action="<?= base_url('sisfo/Kenaikan/tinggal'); ?>" method="post">
+        	<form action="<?= base_url('sisfo/Kenaikan/luluskan'); ?>" method="post">
+            <input type="hidden" name="id_kelas" value="<?= $ses_kelas; ?>">
             <div class="card-body">
               	<div  class="table-responsive read">
-
                 <table class="table" id="dt">
                     <thead>
                       <tr>
@@ -91,40 +91,9 @@
 
               </div>
             </div>
-
-            <div class="card-body bg-light">
-            	
-            	<div class="row">
-            		<div class="col-md-4">
-
-            			<div class="form-group">
-            				<label>Tahun Ajaran Tujuan</label>
-            				<select name="id_tahun" id="tahun" class="form-select">
-            					<option value="" selected disabled>::Pilih Tahun Ajaran::</option>
-            				<?php foreach ($ta as $ta): ?>
-            					<option value="<?= $ta->id_tahun; ?>"><?= $ta->tahun_ajaran; ?></option>
-            				<?php endforeach ?>
-            				</select>
-            			</div>
-
-
-            		</div>
-
-            		<div class="col-md-4">
-            			
-            			<div class="form-group">
-        					<label>Kelas Tujuan</label>
-        					<select name="id_kelas" id="kelas" class="form-select">
-        					
-        					</select>
-        				</div>
-
-            		</div>
-            		<div class="col-md-2">
-            			<button class="btn btn-warning mt-3">Tinggal Kelas</button>
-            		</div>
-            	</div>
-            </div>
+		
+            			<button class="btn btn-success m-2 float-end"><i class="fas fa-graduation-cap"></i>&nbsp;Luluskan</button>
+            
             </form>
 
            

@@ -30,6 +30,7 @@ class User extends CI_Controller {
 	public function tambah()
 	{
 		$data = [
+			'nip'			=> $this->input->post('nip'),
 			'full_name' 	=> $this->input->post('full_name'),
 			'email' 		=> $this->input->post('email'),
 			'password' 		=> password_hash($this->input->post('password'), PASSWORD_DEFAULT),
@@ -67,27 +68,52 @@ class User extends CI_Controller {
                         unlink(FCPATH . 'assets/img/user/'.$old_image);
                     }
                     $new_image = $this->upload->data('file_name');
-                   
+                   $data = [
+                   	'nip'			=> $this->input->post('nip'),
+					'full_name' 	=> $this->input->post('full_name'),
+					'email' 		=> $this->input->post('email'),
+					'id_level' 		=> $this->input->post('id_level'),
+					'image'			=> $new_image,
+				];
                     
                 } else {
                     echo $this->upload->dispay_errors();
                 }
+            }else{
+            	$data = [
+            		'nip'			=> $this->input->post('nip'),
+					'full_name' 	=> $this->input->post('full_name'),
+					'email' 		=> $this->input->post('email'),
+					'id_level' 		=> $this->input->post('id_level'),
+				];
             }
 
-		$data = [
-			'full_name' 	=> $this->input->post('full_name'),
-			'email' 		=> $this->input->post('email'),
-			'id_level' 		=> $this->input->post('id_level'),
-			'image'			=> $new_image,
-		];
+			$query = $this->user->editUser($data,$id);
 
-		$query = $this->user->editUser($data,$id);
+			if ($query) {
+				$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil diubah!', 'success');</script>");
+	        	redirect('sisfo/User');
+			}else{
+				$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal diubah!', 'error');</script>");
+	        	redirect('sisfo/User');
+			}
+	}
+
+	public function change_password($id)
+	{
+		$id = decrypt_url($id);
+
+		$data = [
+			'password' 		=> password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+		];
+		
+		$query = $this->user->changePassword($id,$data);
 
 		if ($query) {
-			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil diubah!', 'success');</script>");
+			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil diupdate!', 'success');</script>");
         	redirect('sisfo/User');
 		}else{
-			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal diubah!', 'error');</script>");
+			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal diupdate!', 'error');</script>");
         	redirect('sisfo/User');
 		}
 	}

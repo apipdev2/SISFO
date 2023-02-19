@@ -18,6 +18,23 @@ function is_login()
 	}
 }
 
+function is_guru()
+{
+	$ci = get_instance();
+	$infoguru = $ci->session->userdata('infoguru');
+
+	$user = $ci->db->get_where('tbl_user',['email'=>$ci->session->userdata('email')]);
+
+	if ($user->num_rows() < 1) {
+		$ci->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Anda belum Login!</div>');
+		redirect('infoguru/Auth');
+	}
+	elseif($infoguru != TRUE || empty($infoguru)){
+		$ci->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Anda belum Login!</div>');
+		redirect('infoguru/Auth');
+	}
+}
+
 function is_login_presensi()
 {
 	$ci = get_instance();

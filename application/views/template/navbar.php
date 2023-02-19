@@ -106,7 +106,7 @@
                     <a class="dropdown-item" href="<?= base_url('sisfo/Kenaikan/tinggal_kelas'); ?>">
                       Tinggal Kelas
                     </a>
-                     <a class="dropdown-item" href="<?= base_url('sisfo/Kenaikan/tinggal_kelas'); ?>">
+                     <a class="dropdown-item" href="<?= base_url('sisfo/Kenaikan/kelulusan'); ?>">
                       Kelulusan
                     </a>
                      <a class="dropdown-item" href="<?= base_url('sisfo/Mutasi'); ?>">
