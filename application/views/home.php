@@ -107,6 +107,19 @@
 .counter.purple .counter-icon{ background-color: #be2edd; }
 .counter.purple .counter-icon:before{ background-color: #666; }
 .counter.purple .counter-value{ color: #666; }
+
+/*  */
+.counter.gold:before{ background-color: #1abc9c; }
+.counter.gold .counter-icon{ background-color: #27ae60; }
+.counter.gold .counter-icon:before{ background-color: #16a085; }
+.counter.gold .counter-value{ color: #666; }
+
+/*  */
+.counter.yellow:before{ background-color: #f1c40f; }
+.counter.yellow .counter-icon{ background-color: #f39c12; }
+.counter.yellow .counter-icon:before{ background-color: #e67e22; }
+.counter.yellow .counter-value{ color: #666; }
+
 @media screen and (max-width:990px){
     .counter{ margin-bottom: 40px; }
 }
@@ -131,7 +144,7 @@
   	<div class="col-md-12 mt-5">
 
       <div class="row">
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-4 col-sm-6">
             <a href="<?= base_url('sisfo/auth'); ?>" style="text-decoration: none;">
             <div class="counter">
                 <div class="counter-icon">
@@ -143,7 +156,7 @@
             </div>
             </a>
         </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-4 col-sm-6">
             <a href="<?= base_url('infoguru/auth'); ?>" style="text-decoration: none;">
             <div class="counter blue">
                 <div class="counter-icon">
@@ -155,8 +168,8 @@
             </div>
             </a>
         </div>
-        <div class="col-md-3 col-sm-6">
-            <a href="<?= base_url('infoguru/auth'); ?>"  style="text-decoration: none;">
+        <div class="col-md-4 col-sm-6">
+            <a href="<?= base_url('infosiswa/auth'); ?>"  style="text-decoration: none;">
             <div class="counter red">
                 <div class="counter-icon">
                     <i class="fas fa-user"></i>
@@ -167,7 +180,41 @@
             </div>
             </a>
         </div>
-        <div class="col-md-3 col-sm-6">
+        
+
+    </div>
+
+        <!-- menu -->
+    <div class="col-md-12 mt-5">
+
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <a href="<?= base_url('keuangan'); ?>" style="text-decoration: none;">
+            <div class="counter gold">
+                <div class="counter-icon">
+                   <i class="fas fa-money-bill"></i>
+                </div>
+                <div class="counter-content">
+                    <h3>Keuangan</h3>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <a href="<?= base_url('Iventory'); ?>" style="text-decoration: none;">
+            <div class="counter yellow">
+                <div class="counter-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="counter-content">
+                    <h3>Iventory</h3>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
             <a href="<?= base_url('presensi'); ?>" style="text-decoration: none;">
             <div class="counter purple">
                 <div class="counter-icon">
@@ -179,9 +226,7 @@
             </div>
             </a>
         </div>
-    </div>
-
-
+       
   		
   	</div>
 

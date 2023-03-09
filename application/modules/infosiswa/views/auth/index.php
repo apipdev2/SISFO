@@ -13,7 +13,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>SISFO | Akademik</title>
+    <title>SISFO | Infoguru</title>
      <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/menu/instansi/'.$instansi->logo); ?>">
     <!-- CSS files -->
@@ -25,7 +25,7 @@
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
-      	--tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+        --tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
       }
     </style>
   </head>
@@ -40,9 +40,9 @@
           </div>
           <?= $this->session->flashdata('message'); ?>
           <h2 class="h3 text-center mb-3">
-            Silahkan Login
+            <?= $title; ?>
           </h2>
-          <form action="<?= base_url('sisfo/Auth'); ?>" method="post">
+          <form action="<?= base_url('Infosiswa/Auth'); ?>" method="post">
             <div class="mb-3">
               <label class="form-label">Email</label>
               <input type="email" name="email" class="form-control" value="<?= set_value('email'); ?>">
@@ -53,27 +53,21 @@
                 <input type="password" name="password" class="form-control <?php if (form_error('password')): ?>
                   is-invalid
                 <?php endif ?>" id="password">
-                <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>               
+                <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?> 
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Tahun Ajaran</label>
+                <select name="id_tahun" class="form-select">
+                  <option value="" selected disabled>::Tahun Ajaran::</option>
+                <?php foreach ($tahun_ajaran as $ta): ?>
+                  <option value="<?= $ta->id_tahun; ?>"><?= $ta->tahun_ajaran; ?></option>
+                <?php endforeach ?>
+                </select>
+                <?= form_error('id_tahun', '<small class="text-danger pl-3">', '</small>'); ?>
               
             </div>
-             <div class="mb-2">
-              <label class="form-label">Tahun Ajaran</label>
-              <select name="id_tahun" class="form-select ">
-                <option value="" selected disabled>::Tahun Ajaran::</option>
-              <?php foreach ($tahun_ajaran as $ta): ?>
-                <option value="<?= $ta->id_tahun; ?>"><?= $ta->tahun_ajaran; ?></option>
-              <?php endforeach ?>
-              </select>
-              <?= form_error('id_tahun', '<small class="text-danger pl-3">', '</small>'); ?>
 
-              <select name="semester" class="form-select mt-2">
-                <option value="" selected disabled>::Semester::</option>
-              <?php foreach ($semester as $semester): ?>
-                <option value="<?= $semester; ?>"><?= $semester; ?></option>
-              <?php endforeach ?>
-              </select>
-            </div>
-           
             <div class="form-footer">
               <button type="submit" class="btn btn-primary w-100">Login</button>
               <a href="<?= base_url('Home'); ?>" class="btn btn-info w-100 mt-2">Home</a>
@@ -91,10 +85,10 @@
     <script src="<?= base_url('assets/dist/js/tabler.min.js'); ?>" defer></script>
     <script src="<?= base_url('assets/dist/js/demo.min.js'); ?>" defer></script>
     <script>
-    	function show()
-    	{	
-    		document.getElementById('password').type = 'text';
-    	}
+      function show()
+      { 
+        document.getElementById('password').type = 'text';
+      }
     </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 <div class="row">
 
   <div class="col-md-3">
-    <img src="" alt="ini foto" width="300">
+    <img src="<?= base_url('assets/img/siswa/'.$siswa->image); ?>" alt="ini foto" width="200">
   </div>
 
   <div class="col-md-7">
@@ -14,7 +14,7 @@
       <tr><th>No KIP</th><td>:</td><td><?= $siswa->no_kip;?></td></tr>
       <tr><th>Nama</th><td>:</td><td><?= $siswa->nama_peserta;?></td></tr>
       <tr><th>Jenis Kelamin</th><td>:</td><td><?= $siswa->jenis_kelamin;?></td></tr>
-      <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir.', '.date_indo($siswa->tanggal_lahir);?></td></tr>
+      <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir.', '.date('d-m-Y',strtotime($siswa->tanggal_lahir));?></td></tr>
       <tr><th>Kelas</th><td>:</td><td><?= $siswa->kelas;?></td></tr>
       <tr><th>Jurusan</th><td>:</td><td><?= $siswa->jurusan;?></td></tr>
       <tr><th>Agama</th><td>:</td><td><?= $siswa->agama;?></td></tr>
@@ -43,7 +43,7 @@
       <tr><th colspan="3" style="border-top: 2px dotted #000;border-bottom: 2px dotted #000;"><h3>Data Orang Tua</h3></th></tr>
       <tr><th>NIK Ayah</th><td>:</td><td><?= $siswa->nik_ayah;?></td></tr>
       <tr><th>Ayah</th><td>:</td><td><?= $siswa->nama_ayah;?></td></tr>
-      <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir_ayah.', '.date_indo($siswa->tanggal_lahir_ayah);?></td></tr>
+      <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir_ayah.', '.date('d-m-Y',strtotime($siswa->tanggal_lahir_ayah));?></td></tr>
       <tr><th>Pendidikan</th><td>:</td><td><?= $siswa->pendidikan_ayah;?></td></tr>
       <tr><th>Pekerjaan</th><td>:</td><td><?= $siswa->pekerjaan_ayah;?></td></tr>
       <tr><th>Penghasilan</th><td>:</td><td><?= $siswa->penghasilan_bulanan_ayah;?></td></tr>
@@ -52,7 +52,7 @@
 
       <tr><th>NIK Ibu</th><td>:</td><td><?= $siswa->nik_ibu;?></td></tr>
       <tr><th>Ibu</th><td>:</td><td><?= $siswa->nama_ibu;?></td></tr>
-      <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir_ibu.', '.date_indo($siswa->tanggal_lahir_ibu);?></td></tr>
+      <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir_ibu.', '.date('d-m-Y',strtotime($siswa->tanggal_lahir_ibu));?></td></tr>
       <tr><th>Pendidikan</th><td>:</td><td><?= $siswa->pendidikan_ibu;?></td></tr>
       <tr><th>Pekerjaan</th><td>:</td><td><?= $siswa->pekerjaan_ibu;?></td></tr>
       <tr><th>Penghasilan</th><td>:</td><td><?= $siswa->penghasilan_bulanan_ibu;?></td></tr>
@@ -61,7 +61,13 @@
 
       <tr><th>NIK Wali</th><td>:</td><td><?= $siswa->nik_wali;?></td></tr>
       <tr><th>Wali</th><td>:</td><td><?= $siswa->nama_wali;?></td></tr>
-      <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir_wali.', '.date_indo($siswa->tanggal_lahir_wali);?></td></tr>
+
+      <?php if ($siswa->tanggal_lahir_wali == '' || $siswa->tanggal_lahir_wali == null): ?>
+        <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir_wali.', '.$siswa->tanggal_lahir_wali;?></td></tr>
+      <?php else: ?>
+        <tr><th>Tempat, Tanggal Lahir</th><td>:</td><td><?= $siswa->tempat_lahir_wali.', '.date('d-m-Y',strtotime($siswa->tanggal_lahir_wali));?></td></tr>
+      <?php endif ?>
+
       <tr><th>Pendidikan</th><td>:</td><td><?= $siswa->pendidikan_wali;?></td></tr>
       <tr><th>Pekerjaan</th><td>:</td><td><?= $siswa->pekerjaan_wali;?></td></tr>
       <tr><th>Penghasilan</th><td>:</td><td><?= $siswa->penghasilan_bulanan_wali;?></td></tr>

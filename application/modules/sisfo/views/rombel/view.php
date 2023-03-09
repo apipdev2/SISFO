@@ -53,8 +53,9 @@
             <div class="card-body">
 
               <div class="btn-group">
-                <a href="" class="btn btn-success mb-2"  data-bs-toggle="modal" data-bs-target="#modal-add" ><i class="fas fa-user-plus"></i> add</a>
-                <a href="" class="btn btn-secondary mb-2"  data-bs-toggle="modal" data-bs-target="#import" ><i class="fas fa-download"></i> Import</a>
+                <a href="" class="btn btn-success mb-2"  data-bs-toggle="modal" data-bs-target="#modal-add" ><i class="fas fa-user-plus"></i> &nbsp; Tambah</a>
+                <a href="" class="btn btn-secondary mb-2"  data-bs-toggle="modal" data-bs-target="#import" ><i class="fas fa-download"></i> &nbsp; Import</a>
+                 <a href="<?= base_url('sisfo/Rombel/generate/'.encrypt_url($kelas->id_kelas)); ?>" class="btn btn-info mb-2" ><i class="fas fa-key"></i> &nbsp; Generate</a>
               </div>
 
               <div  class="table-responsive read">
@@ -98,6 +99,9 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                               <li>
+                                <a href="<?= base_url('sisfo/Rombel/reset/'.encrypt_url($row->nis).'/'.encrypt_url($row->id_kelas)); ?>" class="dropdown-item">Reset Password</a>
+                              </li>
+                              <li>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#modal-del<?= $row->id_riwayat;?>" class="dropdown-item">Keluarkan Rombel</a>
                               </li>
                               <li>
@@ -139,6 +143,7 @@
                  <thead>
                    <tr>
                      <td>#</td>
+                     <td>NIS</td>
                      <th>Nama</th>
                      <th>JK</th>
                      <th>Tempat Lahir</th>
@@ -149,7 +154,8 @@
                   <tbody class="table-tbody">
                       <?php foreach ($siswa as $row): ?>
                         <tr>
-                          <td><input type="checkbox" name="nis[]"  value="<?= $row->nis; ?>"></td>
+                          <td><input type="checkbox" name="id_siswa[]"  value="<?= $row->id_siswa; ?>"></td>
+                          <td><input type="text" name="nis[]" class="form-control" value="<?= $row->nis; ?>"></td>
                           <td><?= $row->nama_peserta; ?></td>
                           <td><?= $row->jenis_kelamin; ?></td>
                           <td><?= $row->tempat_lahir; ?></td>

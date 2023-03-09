@@ -79,6 +79,10 @@
                     <a class="dropdown-item" href="<?= base_url('sisfo/Walas'); ?>">
                       Wali Kelas
                     </a>
+                    <a class="dropdown-item" href="<?= base_url('sisfo/Alumni'); ?>">
+                      Alumni
+                    </a>
+
                     
                   </div>
                 </li>

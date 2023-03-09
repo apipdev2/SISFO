@@ -2,16 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->helper('Nis');
-    }
 
 	public function index()
 	{	
-		if ($this->session->userdata('logged_in')) {
-            redirect(base_url('sisfo/Dashboard'));
+		if ($this->session->userdata('infosiswa')) {
+            redirect(base_url('infosiswa/Dashboard'));
         }
 
         
@@ -20,19 +15,17 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         $this->form_validation->set_rules('id_tahun', 'Tahun Ajaran', 'required');
 
-
         if ($this->form_validation->run() == false) {
             
 
             	$data = [
-                    'title'     => 'Login Page',
+                    'title'     => 'Login Siswa',
                     'tahun_ajaran'=> $this->db->get('tahunajaran')->result(),
                     'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
                     'semester' => ['Ganjil','Genap'],
-                    'nis' => get_nis(),
                 ];
 
-			$this->load->view('sisfo/auth/index', $data);
+			$this->load->view('infosiswa/auth/index', $data);
 
 		} else {
             // validasinya success
@@ -47,45 +40,43 @@ class Auth extends CI_Controller {
         $email      = $this->input->post('email');
         $password   = $this->input->post('password');
         $tahunajaran= $this->input->post('id_tahun');
-        $semester = $this->input->post('semester');
-        $user = $this->db->get_where('tbl_user', ['email' => $email])->row();
+        $user = $this->db->get_where('siswa', ['email' => $email])->row();
 
        
         // jika usernya ada
             if ($user) {
                 // jika usernya aktif
-                if ($user->is_active == "Y") {
+                if ($user->flag == 1) {
                     // cek password
                     if (password_verify($password, $user->password)) {
 
                              $data = [    
-                            'id_user'     => $user->id_user,                        
-                            'email'       => $user->email,
-                            'username'    => ucfirst($user->username),
-                            'id_level'    => $user->id_level,
-                            'image'       => $user->image,
-                            'id_tahun'    => $tahunajaran,
-                            'semester'    => $semester,
-                            'logged_in'   => TRUE
+                                'id_siswa'     => $user->id_siswa,
+                                'nis'     => $user->nis,                        
+                                'email'       => $user->email,
+                                'nama_peserta'    => ucfirst($user->nama_peserta),
+                                'image'       => $user->image,
+                                'id_tahun'    => $tahunajaran,
+                                'infosiswa'   => TRUE
                             ];
 
                             $this->session->set_userdata($data);
                             
-                            redirect('sisfo/Dashboard');
+                            redirect('infosiswa/Dashboard');
                             
                    
                    
                     } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email Atau Password Salah!</div>');
-                            redirect('sisfo/Auth');
+                            redirect('infosiswa/Auth');
                         }
                     } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun anda tidak aktif!</div>');
-                        redirect('sisfo/Auth');
+                        redirect('infosiswa/Auth');
                     }
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun Anda tidak terdaftar!</div>');
-                    redirect('sisfo/Auth');
+                    redirect('infosiswa/Auth');
             }
          
     }
@@ -95,13 +86,13 @@ class Auth extends CI_Controller {
 
     public function logout()
     {   
-        $data = ['id_user','email','username','id_level','image','logged_in','id_tahun'];
+        $data = ['id_siswa','nis','email','nama_peserta','image','infosiswa'];
 
         // $this->session->unset_userdata($data);
         $this->session->sess_destroy();
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil log out!</div>');
-        redirect('sisfo/Auth');
+        redirect('infosiswa/Auth');
     }
 
   

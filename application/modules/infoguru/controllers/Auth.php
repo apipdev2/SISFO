@@ -13,6 +13,7 @@ class Auth extends CI_Controller {
 
 		$this->form_validation->set_rules('email', 'email', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('id_tahun', 'tahun ajaran', 'required');
 
         if ($this->form_validation->run() == false) {
             
@@ -88,8 +89,8 @@ class Auth extends CI_Controller {
     {   
         $data = ['id_user','nip','email','username','id_level','image','infoguru','id_tahun'];
 
-        $this->session->unset_userdata($data);
-
+        // $this->session->unset_userdata($data);
+        $this->session->sess_destroy();
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil log out!</div>');
         redirect('infoguru/Auth');
     }

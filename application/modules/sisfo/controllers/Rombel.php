@@ -35,7 +35,7 @@ class Rombel extends CI_Controller {
 			'title' => 'View Rombel',
 			'instansi' => $this->db->get_where('identitas',['id_identitas'=>'1'])->row(),
 			'tahunajaran' => $this->db->get_where('tahunajaran',['id_tahun'=> $this->session->userdata('id_tahun')])->row(),
-			'pd' => $this->riwayatkelas->getSiswaByIdKelas($id_kelas)->result(),
+			'pd' => $this->rombel->getSiswaByIdKelas($id_kelas)->result(),
 			'kelas' => $this->db->get_where('tbl_kelas',['id_kelas' => $id_kelas])->row(),
 			'siswa' => $this->rombel->getSiswa()->result(),
 		];
@@ -46,12 +46,17 @@ class Rombel extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+   
+
 	public function addPeserta()
 	{	
 		$id_kelas = $this->input->post('id_kelas');
-		$nis =  $this->input->post('nis');
+		$id_siswa =  $this->input->post('id_siswa');
+        $nis =  $this->input->post('nis');
 
-		for ($i=0; $i < count($nis); $i++) { 
+
+
+		for ($i=0; $i < count($id_siswa); $i++) { 
 
 			$data[$i] = [
 				'id_tahun' => $this->session->userdata('id_tahun'),
@@ -69,7 +74,7 @@ class Rombel extends CI_Controller {
             if ($cek < 1) {
                 $query = $this->riwayatkelas->insertSiswa($data[$i]);
                 //update flag siswa
-                $this->db->where('nis', $nis[$i])->update('siswa',['flag'=>'1']);
+                $this->db->where('id_siswa', $id_siswa[$i])->update('siswa',['nis'=>$nis[$i],'flag'=>'1']);
             }
 			
 
@@ -266,6 +271,39 @@ class Rombel extends CI_Controller {
             redirect('sisfo/Rombel');
         }
     }
+
+    public function generate($id_kelas)
+    {   
+        $id_kelas = decrypt_url($id_kelas);
+        $siswa = $this->db->get_where('riwayatkelas',['id_kelas'=>$id_kelas])->result();
+
+        foreach ($siswa as $sis) {
+            
+            $nis = $sis->nis;
+            $password = password_hash('123456', PASSWORD_DEFAULT);
+
+            $this->db->where('nis', $nis);
+            $this->db->update('siswa',['password'=> $password]);
+        }
+
+    $this->session->set_flashdata('message', "<script>swal('Sukses!', 'Generate data berhasil!', 'success');</script>");
+    redirect('sisfo/Rombel/view/'.encrypt_url($id_kelas));
+    }
+
+    public function reset($nis,$id_kelas)
+    {   
+        $nis = decrypt_url($nis);        
+        $password = password_hash('123456', PASSWORD_DEFAULT);
+
+        $this->db->where('nis', $nis);
+        $this->db->update('siswa',['password'=> $password]);
+
+        $this->session->set_flashdata('message', "<script>swal('Sukses!', 'Reset Password berhasil'!', 'success');</script>");
+        redirect('sisfo/Rombel/view/'.$id_kelas);
+            
+
+    }
+
 
 	
 

@@ -63,7 +63,7 @@
 
                 <div class="col-md-6">
                   <div class="btn-group text-center">
-                    <a href="<?= base_url('sisfo/Presensiguru/addPhguru'); ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>                    
+                                      
                     <button class="btn btn-secondary" type="button" onclick="cetak()"><i class="fas fa-print"></i> Cetak</button>
                   </div>
                 </div>

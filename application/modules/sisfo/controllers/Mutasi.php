@@ -26,6 +26,15 @@ class Mutasi extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+	public function restore($nis)
+	{
+		$this->db->where('nis',$nis)->delete('mutasi');
+		$this->db->where('nis',$nis)->update('riwayatkelas',['status_siswa' => 'Y']);
+		$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil direstore!', 'success');</script>");
+        redirect('sisfo/Mutasi');
+
+	}
+
 	public function ajax_getMutasiMasuk()
 	{
 		$mutasi_masuk = $this->mutasi->get_mutasi_masuk()->result();

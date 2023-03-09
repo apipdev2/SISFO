@@ -7,6 +7,7 @@ class User extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('User_model','user');
+		$this->load->model('LogActivities_model','logs');
 		is_login();
 		cek_admin();
 	}
@@ -42,6 +43,7 @@ class User extends CI_Controller {
 
 		if ($query) {
 			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil Tersimpan!', 'success');</script>");
+			$this->logs->insert('tbl_user', json_encode($data), 'add user', '', date("Y-m-d H:i:s"), $this->session->userdata('id_user')); 
         	redirect('sisfo/User');
 		}else{
 			$this->session->set_flashdata('message', "<script>swal('Gagal!', 'Data Gagal Tersimpan!', 'error');</script>");
@@ -91,6 +93,7 @@ class User extends CI_Controller {
 			$query = $this->user->editUser($data,$id);
 
 			if ($query) {
+				$this->logs->insert('tbl_user', json_encode($data), 'edit user id :'.$id, '', date("Y-m-d H:i:s"), $this->session->userdata('id_user')); 
 				$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil diubah!', 'success');</script>");
 	        	redirect('sisfo/User');
 			}else{
@@ -121,10 +124,10 @@ class User extends CI_Controller {
 	public function hapus($id)
 	{
 		$id = decrypt_url($id);
-		
 		$query = $this->user->hapusUser($id);
 
 		if ($query) {
+			$this->logs->insert('tbl_user', 'delete data '.$id, 'delete user id :'.$id, '', date("Y-m-d H:i:s"), $this->session->userdata('id_user')); 
 			$this->session->set_flashdata('message', "<script>swal('Sukses!', 'Data Berhasil dihapus!', 'success');</script>");
         	redirect('sisfo/User');
 		}else{

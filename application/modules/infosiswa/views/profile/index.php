@@ -1,65 +1,53 @@
 <!-- Page header -->
- <div class="page-header d-print-none">
-    <div class="container-xl">
-      <div class="row g-2 align-items-center">
-        <div class="col">
-          <h2 class="page-title">
-            <?= $title; ?>
-          </h2>
-        </div>
-
-        <!-- Page title actions -->
-        <div class="col-12 col-md-auto ms-auto d-print-none">
-            <div class="btn-list">
-
-                
-
+<div class="page-wrapper">
+        <!-- Page header -->
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <!-- Page pre-title -->               
+                <h2 class="page-title">
+                  <?= $title; ?>
+                </h2>
+              </div>
+              <!-- Page title actions -->
+              <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <nav aria-label="breadcrumb">
+	                  <ol class="breadcrumb">
+	                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+	                    <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
+	                  </ol>
+	                </nav>
+                </div>
+              </div>
             </div>
           </div>
-      </div>
-    </div>
-  </div>
+        </div>
+
   <!-- Page body -->
+  
   <div class="page-body">
     <div class="container-xl">
 
 
         <div class="card">
-          <div class="card-header">
-            <h3>Silahkan Isi Form Berikut :</h3>
-          </div>
+          
             <div class="card-body">
-              <form action="<?= base_url('sisfo/Siswa/update/'.encrypt_url($siswa->id_siswa));?>" method="post">
+              <form action="<?= base_url('Infosiswa/Profile/update/'.encrypt_url($siswa->id_siswa));?>" method="post">
 
                     <div id="pribadi">
-                      <h2 class="text-center bg-info text-light">
-                        Data Pribadi
-                      </h2>
+                      <!-- divider -->
+                       <div class="d-flex">
+                        <hr class="my-auto flex-grow-1">
+                        <div class="px-4"><h3>Data Diri</h3></div>
+                        <hr class="my-auto flex-grow-1">
+                      </div>
+                      <!-- end divider -->
                       <div class="row ">
 
-                        <div class="col-6">
+                        <div class="col-md-6">
 
-                           <div class="form-group mb-3 row mb-3 row">
-                            <label class="col-3 col-form-label">Jenis Registrasi</label>
-                            <div class="col">
-                              <select name="jenis_registrasi" class="form-select">
-                                <?php foreach ($jenis_registrasi as $row): ?>
-                                  <?php if ($row == $siswa->jenis_registrasi): ?>
-                                    <option value="<?= $row; ?>" selected><?= $row; ?></option>
-                                  <?php else: ?>
-                                    <option value="<?= $row; ?>"><?= $row; ?></option>
-                                  <?php endif ?>                                  
-                                <?php endforeach ?>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="form-group mb-3 row mb-3 row">
-                            <label class="col-3 col-form-label">NIS</label>
-                            <div class="col">
-                              <input type="text" name="nis" class="form-control" value="<?= $siswa->nis; ?>" >
-                            </div>
-                          </div>
 
                           <div class="form-group mb-3 row mb-3 row">
                             <label class="col-3 col-form-label">NISN</label>
@@ -195,7 +183,7 @@
                           
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-md-6">
 
                           <div class="form-group mb-3 row">
                             <label class="col-3 col-form-label">Tempat Tinggal</label>
@@ -352,9 +340,14 @@
                     </div>
 
                     <div id="ortu">
-                      <h2 class="text-center bg-warning text-light">
-                        Data Orang Tua
-                      </h2>
+
+                       <div class="d-flex">
+                        <hr class="my-auto flex-grow-1">
+                        <div class="px-4"><h3>Data Orang Tua</h3></div>
+                        <hr class="my-auto flex-grow-1">
+                      </div>
+                      <!-- end divider -->
+
                       <div class="row">
 
                         <div class="col-md-6">
@@ -557,9 +550,14 @@
                     </div>
 
                     <div id="wall">
-                      <h2 class="text-center bg-success text-light">
-                        Data Wali 
-                      </h2>
+                      <!-- divider -->
+                      <div class="d-flex">
+                        <hr class="my-auto flex-grow-1">
+                        <div class="px-4"><h3>Data Wali</h3></div>
+                        <hr class="my-auto flex-grow-1">
+                      </div>
+                      <!-- end divider -->
+
                       <div class="row">
 
                         <div class="col-md-6">
@@ -650,8 +648,7 @@
                       </div>
                     </div>
 
-                    <button class="btn btn-primary float-end m-1"><i class="fas fa-save m-1"></i> Save</button>
-                    <a href="<?= base_url('sisfo/Siswa'); ?>" class="btn btn-danger m-1 float-end"><i class="fas fa-undo"></i>Back</a>
+                    <button class="btn btn-primary float-end m-1"><i class="fas fa-save m-1"></i> Update</button>
 
 
               </form>

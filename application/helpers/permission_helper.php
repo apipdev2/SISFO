@@ -35,6 +35,24 @@ function is_guru()
 	}
 }
 
+//siswa
+function is_siswa()
+{
+	$ci = get_instance();
+	$infosiswa = $ci->session->userdata('infosiswa');
+
+	$siswa = $ci->db->get_where('siswa',['email'=>$ci->session->userdata('email')]);
+
+	if ($siswa->num_rows() < 1) {
+		$ci->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Anda belum Login!</div>');
+		redirect('infosiswa/Auth');
+	}
+	elseif($infosiswa != TRUE || empty($infosiswa)){
+		$ci->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Anda belum Login!</div>');
+		redirect('infosiswa/Auth');
+	}
+}
+
 function is_login_presensi()
 {
 	$ci = get_instance();

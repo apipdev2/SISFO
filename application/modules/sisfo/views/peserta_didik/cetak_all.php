@@ -99,7 +99,7 @@
 	      <td><?= $row->nama_peserta; ?></td>
 	      <td><?= $row->jenis_kelamin; ?></td>
 	      <td><?= $row->tempat_lahir; ?></td>
-	      <td><?= date_indo($row->tanggal_lahir); ?></td>
+	      <td><?= date('d-m-Y',strtotime($row->tanggal_lahir)); ?></td>
 	      <td><?= $row->kelas; ?></td>
 	     </tr>	    	
 	  	<?php endforeach ?>	    

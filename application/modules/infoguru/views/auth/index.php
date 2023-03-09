@@ -58,22 +58,23 @@
             </div>
              <div class="mb-2">
               <label class="form-label">Tahun Ajaran</label>
-              <div class="input-group input-group-flat row">
-                <select name="id_tahun" class="form-select col-6">
+              
+                <select name="id_tahun" class="form-select ">
                   <option value="" selected disabled>::Tahun Ajaran::</option>
                 <?php foreach ($tahun_ajaran as $ta): ?>
                   <option value="<?= $ta->id_tahun; ?>"><?= $ta->tahun_ajaran; ?></option>
                 <?php endforeach ?>
                 </select>
+                <?= form_error('id_tahun', '<small class="text-danger pl-3">', '</small>'); ?>
 
-                <select name="semester" class="form-select col-6">
+                <select name="semester" class="form-select mt-2">
                   <option value="" selected disabled>::Semester::</option>
                 <?php foreach ($semester as $semester): ?>
                   <option value="<?= $semester; ?>"><?= $semester; ?></option>
                 <?php endforeach ?>
                 </select>
 
-              </div>
+              
             </div>
            
             <div class="form-footer">

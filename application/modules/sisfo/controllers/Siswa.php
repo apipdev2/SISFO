@@ -209,6 +209,7 @@ class Siswa extends CI_Controller {
 				'nik' 			 => $this->input->post('nik'),
 				'nama_peserta'   => $this->input->post('nama_peserta'),
 				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'nis' => $this->input->post('nis'),		
 				'nisn' => $this->input->post('nisn'),				
 				'tempat_lahir' => $this->input->post('tempat_lahir'),
 				'tanggal_lahir' => $this->input->post('tanggal_lahir'),

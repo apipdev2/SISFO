@@ -120,7 +120,7 @@
 				<td width="5"></td>
 				<td width="5">4.</td>
 				<td>Tempat, Tanggal Lahir</td>
-				<td><?= $peserta->tempat_lahir.', '.date_indo($peserta->tanggal_lahir); ?></td>
+				<td><?= $peserta->tempat_lahir.', '.date('d-m-Y',strtotime($peserta->tanggal_lahir)); ?></td>
 			</tr>
 			<tr>
 				<td width="5"></td>
@@ -176,7 +176,7 @@
 				<td width="5"></td>
 				<td width="5">3.</td>
 				<td>Tempat Tanggal, Lahir</td>
-				<td><?= $peserta->tempat_lahir_ayah; ?>, <?= date_indo($peserta->tanggal_lahir_ayah); ?></td>
+				<td><?= $peserta->tempat_lahir_ayah; ?>, <?= date('d-m-Y',strtotime($peserta->tanggal_lahir_ayah)); ?></td>
 			</tr>
 
 			<tr>
@@ -216,7 +216,7 @@
 				<td width="5"></td>
 				<td width="5">9.</td>
 				<td>Tempat Tanggal, Lahir</td>
-				<td><?= $peserta->tempat_lahir_ibu; ?>, <?= date_indo($peserta->tanggal_lahir_ibu); ?></td>
+				<td><?= $peserta->tempat_lahir_ibu; ?>, <?= date('d-m-Y',strtotime($peserta->tanggal_lahir_ibu)); ?></td>
 			</tr>
 
 			<tr>
@@ -261,7 +261,7 @@
 				<td width="5"></td>
 				<td width="5">3.</td>
 				<td>Tempat Tanggal, Lahir</td>
-				<td><?= $peserta->tempat_lahir_wali; ?>, <?= date_indo($peserta->tanggal_lahir_wali); ?></td>
+				<td><?= $peserta->tempat_lahir_wali; ?>, <?= date('d-m-Y',strtotime($peserta->tanggal_lahir_wali)); ?></td>
 			</tr>
 
 			<tr>

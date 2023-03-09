@@ -172,6 +172,7 @@
             $('#dtb').DataTable();
   				}
   			});
+
   		}else{
 
   			$.ajax({
@@ -193,7 +194,7 @@
   							  +'<td>'+keluar[i].nama_peserta+'</td>'
   							  +'<td>'+keluar[i].kelas+'</td>'
   							  +'<td>'+keluar[i].jenis_mutasi+'</td>'
-  							  +'<td><a href="#" class="fas fa-search text-success"></a> | <a href="#" class="fas fa-edit text-warning"></a> | <a href="#" class="fas fa-trash text-danger"></a> | <a href="#" class="fas fa-print text-secondary"></a></td></td>'
+  							  +'<td><a href="#" onclick="restore('+ keluar[i].nis +')" class="fas fa-undo text-danger"></a></td>'
   							  +'</tr>';
   					}
   					$('.table-tbody').html(html);
@@ -204,6 +205,11 @@
   		}
 
   	});
+
+
+    function restore(nis){
+      window.location.href = "<?= base_url('sisfo/Mutasi/restore/');?>"+nis;
+    }
 
   
   </script>
